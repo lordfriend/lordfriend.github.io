@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="HandheldFriendly" content="True"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
+  <title>Make Action Bar Overlay work with ListView or GridView | Nyasoft</title>
+  
+    <link rel="alternative" href="/atom.xml" title="Nyasoft" type="application/atom+xml">
+  
+  <meta name="description" content="ActionBar pattern is widely used since Honeycomb released. As the action bar actually take space of your limited screen, you may need make the action bar semi-transparent to save some space.
+ActionBar">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Make Action Bar Overlay work with ListView or GridView">
+<meta property="og:url" content="http://nya.io/uncategorized/Make-Action-Bar-Overlay-work-with-ListView-or-GridView/index.html">
+<meta property="og:site_name" content="Nyasoft">
+<meta property="og:description" content="ActionBar pattern is widely used since Honeycomb released. As the action bar actually take space of your limited screen, you may need make the action bar semi-transparent to save some space.
+ActionBar">
+<meta property="og:image" content="/img/cliptopadding.gif">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Make Action Bar Overlay work with ListView or GridView">
+<meta name="twitter:description" content="ActionBar pattern is widely used since Honeycomb released. As the action bar actually take space of your limited screen, you may need make the action bar semi-transparent to save some space.
+ActionBar">
+  <link rel="stylesheet" href="/css/2bb849c6.styles.css">
+  <link rel="stylesheet" href="/fancybox/source/6c55951c.jquery.fancybox.css">
+  
+</head>
+<body>
+<nav class="navbar">
+  <div class="container-full">
+    <a class="brand" href="/">Nyasoft</a>
+
+    <div class="collapse">
+      <input id="drawer-toggle" type="checkbox" name="drawer-toggle"/>
+      <label for="drawer-toggle" id="drawer-toggle-label">
+        <i class="fa fa-navicon"></i>
+        <span class="action-name">Nyasoft</span>
+      </label>
+      <label for="drawer-toggle" id="backdrop-button"></label>
+      <ul id="drawer-menu" class="nav nav-menu stack">
+        <li class="site-homepage">
+          <a href="/">Nyasoft</a>
+        </li>
+        
+        <li>
+          <a href="/about">About</a>
+        </li>
+        
+        <li>
+          <a href="/archives">Archives</a>
+        </li>
+        
+        <li>
+          <a href="/projects">Projects</a>
+        </li>
+        
+        <li>
+          <a href="/links">Links</a>
+        </li>
+        
+      </ul>
+    </div>
+    <div class="container hori-nav-menu">
+      <ul class="nav nav-menu">
+        
+        <li>
+          <a href="/about">About</a>
+        </li>
+        
+        <li>
+          <a href="/archives">Archives</a>
+        </li>
+        
+        <li>
+          <a href="/projects">Projects</a>
+        </li>
+        
+        <li>
+          <a href="/links">Links</a>
+        </li>
+        
+      </ul>
+    </div>
+    <div class="corner-container">
+      <ul class="nav nav-menu">
+        
+        <li>
+          <a href="/atom.xml" title="RSS Feed">
+            <i class="fa fa-rss"></i>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <article class="article-container">
+  <a href="/uncategorized/Make-Action-Bar-Overlay-work-with-ListView-or-GridView/" class="post-date mobile-meta">
+  <time datetime="2014-12-31T06:45:20.000Z">12月 31 2014</time>
+</a>
+  <div class="article-content">
+    <header class="article-header">
+      
+        
+
+<h1>
+  Make Action Bar Overlay work with ListView or GridView
+</h1>
+
+
+      
+    </header>
+    <div class="article-entry">
+      
+        <p>ActionBar pattern is widely used since Honeycomb released. As the action bar actually take space of your limited screen, you may need make the action bar semi-transparent to save some space.
+ActionBar API provide an method to overlay your action bar on your screen content. as the <a href="http://developer.android.com/training/basics/actionbar/overlaying.html" target="_blank" rel="external">training material</a> mentioned:</p>
+<p>Just add a style <code>windowActionBarOverlay</code> and set it true. The snippet is copied from android developer.
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">resources</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- the theme applied to the application or activity --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">style</span> <span class="attribute">name</span>=<span class="value">"CustomActionBarTheme"</span></span><br><span class="line">           <span class="attribute">parent</span>=<span class="value">"@android:style/Theme.AppCompat"</span>&gt;</span><span class="css"></span><br><span class="line">        &lt;<span class="tag">item</span> <span class="tag">name</span>="<span class="rule"><span class="attribute">android</span>:<span class="value">windowActionBarOverlay<span class="string">"&gt;true&lt;/item&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!-- Support library compatibility --&gt;</span><br><span class="line">        &lt;item name="</span>windowActionBarOverlay<span class="string">"&gt;true&lt;/item&gt;</span><br><span class="line">    </span></span></span></span><span class="tag">&lt;/<span class="title">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">resources</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>But the training material from android developer site isn’t use an ListView or GridView with ActionBar overlay. When you just follow its instruction to set paddingTop on your ListView or GridView.
+You may not get expected effect. the scrolling content is just cut from the air. like the left side show on the figure.</p>
+<p><img src="/img/cliptopadding.gif" alt="clipToPadding and scrollBarStyle Protip"></p>
+<p>To achieve the right effect like the right side. Android Developers Official G+ page give a tip on G+ <a href="https://plus.google.com/+AndroidDevelopers/posts/LpAA7q4jw9M" target="_blank" rel="external">https://plus.google.com/+AndroidDevelopers/posts/LpAA7q4jw9M</a></p>
+<p>Add an attribute <code>android:clipToPadding</code> to your ListView or GridView and set it false. then you can set your paddingTop on your ListView or GridView as your ActionBar height.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">ListView</span></span><br><span class="line">    …</span><br><span class="line">    <span class="attribute">android:clipToPadding</span>=<span class="value">"false"</span></span><br><span class="line">    <span class="attribute">android:scrollbarStyle</span>=<span class="value">"outsideOverlay"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+  </div>
+  <div class="article-additional">
+    <div class="social-buttons">
+      <a data-url="http://nya.io/uncategorized/Make-Action-Bar-Overlay-work-with-ListView-or-GridView/" data-id="ci83407p3001buk0fc4vct87s" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+      </a>
+    </div>
+    
+    
+  <ul class="tag-list nav-menu mobile-meta">
+    
+      <li>
+        <a href="/tags/Android/">#Android</a>
+      </li>
+    
+  </ul>
+
+  </div>
+  <div class="article-meta">
+    <a href="/uncategorized/Make-Action-Bar-Overlay-work-with-ListView-or-GridView/" class="post-date">
+  <time datetime="2014-12-31T06:45:20.000Z">12月 31 2014</time>
+</a>
+    
+    
+  <ul class="tag-list">
+    
+      <li>
+        <a href="/tags/Android/">#Android</a>
+      </li>
+    
+  </ul>
+
+  </div>
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+
+      <section class="copyright">
+        Nyasoft © 2015
+      </section>
+
+      <section class="designedby">
+        Theme
+        <a href="#">Timeline</a>
+        Designed By
+        Nyasoft
+      </section>
+
+      <section class="poweredby">
+        Powered By
+        <a href="http://hexo.io/">Hexo</a>
+      </section>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  var disqus_shortname = 'lordfriend';
+  
+  var disqus_url = 'http://nya.io/uncategorized/Make-Action-Bar-Overlay-work-with-ListView-or-GridView/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script type="text/javascript" src="/js/cf26f8f0.jquery.js"></script>
+<script src="/fancybox/source/jquery.fancybox.js" type="text/javascript"></script>
+<script type="text/javascript" src="/js/33415e49.caption.js"></script>
+</body>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="HandheldFriendly" content="True"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
+  <title>Nyasoft</title>
+  
+    <link rel="alternative" href="/atom.xml" title="Nyasoft" type="application/atom+xml">
+  
+  <meta name="description" content="Nyasoft is a blog about web and android development technology">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nyasoft">
+<meta property="og:url" content="http://nya.io/page/3/index.html">
+<meta property="og:site_name" content="Nyasoft">
+<meta property="og:description" content="Nyasoft is a blog about web and android development technology">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nyasoft">
+<meta name="twitter:description" content="Nyasoft is a blog about web and android development technology">
+  <link rel="stylesheet" href="/css/2bb849c6.styles.css">
+  <link rel="stylesheet" href="/fancybox/source/6c55951c.jquery.fancybox.css">
+  
+</head>
+<body>
+<nav class="navbar">
+  <div class="container-full">
+    <a class="brand" href="/">Nyasoft</a>
+
+    <div class="collapse">
+      <input id="drawer-toggle" type="checkbox" name="drawer-toggle"/>
+      <label for="drawer-toggle" id="drawer-toggle-label">
+        <i class="fa fa-navicon"></i>
+        <span class="action-name">Nyasoft</span>
+      </label>
+      <label for="drawer-toggle" id="backdrop-button"></label>
+      <ul id="drawer-menu" class="nav nav-menu stack">
+        <li class="site-homepage">
+          <a href="/">Nyasoft</a>
+        </li>
+        
+        <li>
+          <a href="/about">About</a>
+        </li>
+        
+        <li>
+          <a href="/archives">Archives</a>
+        </li>
+        
+        <li>
+          <a href="/projects">Projects</a>
+        </li>
+        
+        <li>
+          <a href="/links">Links</a>
+        </li>
+        
+      </ul>
+    </div>
+    <div class="container hori-nav-menu">
+      <ul class="nav nav-menu">
+        
+        <li>
+          <a href="/about">About</a>
+        </li>
+        
+        <li>
+          <a href="/archives">Archives</a>
+        </li>
+        
+        <li>
+          <a href="/projects">Projects</a>
+        </li>
+        
+        <li>
+          <a href="/links">Links</a>
+        </li>
+        
+      </ul>
+    </div>
+    <div class="corner-container">
+      <ul class="nav nav-menu">
+        
+        <li>
+          <a href="/atom.xml" title="RSS Feed">
+            <i class="fa fa-rss"></i>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <section class="article-list">
+
+  <article class="article-container">
+  <a href="/AngularJS/angular-jquery-load-order/" class="post-date mobile-meta">
+  <time datetime="2014-02-08T13:50:03.000Z">2月 08 2014</time>
+</a>
+  <div class="article-content">
+    <header class="article-header">
+      
+        
+
+<h1>
+  <a href="/AngularJS/angular-jquery-load-order/">Angular 与 jQuery 加载顺序的问题</a>
+</h1>
+
+
+      
+    </header>
+    <div class="article-entry">
+      
+        <p>最近打算把一个自己写的angular directive开源，于是花了点时间写demo，但是在demo里曾经没有什么问题的插件不能正常的工作，令人匪夷所思。
+发现问题之后，困扰了一段时间，把所有能怀疑的对象都检查了一遍，依然没发现问题，最后在无意间对比过去使用这个directive的项目代码和demo代码发现二者的angular.js与jquery.js加载顺序不同，于是调换了一下顺序，果然问题就解决了。瞬间有种要掀桌的感觉(╯°Д°)╯︵ ┻━┻。
+不过这个问题是为什么呢，百思不得其解，在Google了一番之后，在Google Group上找到了类似的<a href="https://groups.google.com/forum/#!topic/angular/6A3Skwm59Z4" target="_blank" rel="external">问题</a>。在原po的提示下，通过研究angular源码发现，原来angular会在加载到内存之后，查找 <code>window.jQuery</code> 如果存在，就对其进行扩展，并将jQLite绑定到jQuery上，以后创建出来的jQLite对象实际上也是jQuery对象。如果没找到，就使用angular自带的jQLite。以下是部分代码片段
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bindJQuery</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// bind to jQuery if present;</span></span><br><span class="line">  jQuery = <span class="built_in">window</span>.jQuery;</span><br><span class="line">  <span class="comment">// reset to jQuery or default to us.</span></span><br><span class="line">  <span class="keyword">if</span> (jQuery) &#123;</span><br><span class="line">    jqLite = jQuery;</span><br><span class="line">    extend(jQuery.fn, &#123;</span><br><span class="line">      scope: JQLitePrototype.scope,</span><br><span class="line">      isolateScope: JQLitePrototype.isolateScope,</span><br><span class="line">      controller: JQLitePrototype.controller,</span><br><span class="line">      injector: JQLitePrototype.injector,</span><br><span class="line">      inheritedData: JQLitePrototype.inheritedData</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// Method signature:</span></span><br><span class="line">    <span class="comment">//     jqLitePatchJQueryRemove(name, dispatchThis, filterElems, getterIfNoArguments)</span></span><br><span class="line">    jqLitePatchJQueryRemove(<span class="string">'remove'</span>, <span class="literal">true</span>, <span class="literal">true</span>, <span class="literal">false</span>);</span><br><span class="line">    jqLitePatchJQueryRemove(<span class="string">'empty'</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>);</span><br><span class="line">    jqLitePatchJQueryRemove(<span class="string">'html'</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">true</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    jqLite = JQLite;</span><br><span class="line">  &#125;</span><br><span class="line">  angular.element = jqLite;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Angular在加载到内存之后便会执行这段代码。以后所有的angular.element()创建或包装的对象都是jqLite对象。如果弄错了加载顺序，那么使用$()创建出来的对象与angular的jqLite对象便存在兼容性问题，导致一些奇怪的现象。</p>
+<h3 id="正确的做法">正确的做法</h3><p>如果你要在项目中同时使用jQuery与AngularJS那么，一定要让jQuery在angularjs之前加载。比如下面这样写才能保证程序不出现奇怪的问题：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"bower_components/jquery/jquery.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"bower_components/angular/angular.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+  </div>
+  <div class="article-additional">
+    <div class="social-buttons">
+      <a data-url="http://nya.io/AngularJS/angular-jquery-load-order/" data-id="ci83407ov000yuk0fnrftr2wy" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+      </a>
+    </div>
+    
+<a href="http://nya.io/AngularJS/angular-jquery-load-order/#disqus_thread" class="comment-count mobile-meta">
+  Comments
+</a>
+
+    
+  <ul class="tag-list nav-menu mobile-meta">
+    
+      <li>
+        <a href="/tags/AngularJS/">#AngularJS</a>
+      </li>
+    
+      <li>
+        <a href="/tags/jQuery/">#jQuery</a>
+      </li>
+    
+  </ul>
+
+  </div>
+  <div class="article-meta">
+    <a href="/AngularJS/angular-jquery-load-order/" class="post-date">
+  <time datetime="2014-02-08T13:50:03.000Z">2月 08 2014</time>
+</a>
+    
+<a href="http://nya.io/AngularJS/angular-jquery-load-order/#disqus_thread" class="comment-count">
+  Comments
+</a>
+
+    
+  <ul class="tag-list">
+    
+      <li>
+        <a href="/tags/AngularJS/">#AngularJS</a>
+      </li>
+    
+      <li>
+        <a href="/tags/jQuery/">#jQuery</a>
+      </li>
+    
+  </ul>
+
+  </div>
+</article>
+
+
+
+  <article class="article-container">
+  <a href="/Node-js/grunt-livereload-for-realtime-preview/" class="post-date mobile-meta">
+  <time datetime="2014-02-06T05:40:42.000Z">2月 06 2014</time>
+</a>
+  <div class="article-content">
+    <header class="article-header">
+      
+        
+
+<h1>
+  <a href="/Node-js/grunt-livereload-for-realtime-preview/">用Grunt与livereload构建实时预览的开发环境</a>
+</h1>
+
+
+      
+    </header>
+    <div class="article-entry">
+      
+        <p>自从用了<a href="http://yeoman.io" target="_blank" rel="external">yeoman</a>来开发angular.js之后，就喜欢上这个工具了，顺带也了解了整个workflow所用的所有工具，yeoman给我最深的印象就是它可以在开发的时候启动一个localhost的server来预览你的前端项目，并且能够实时反应你对文件的修改。想想把，你不在需要依赖昂贵又不准确的IDE进行WYSIWYG开发，也不需要自己动手去按F5不停的刷新页面，还要担心缓存问题。现在只要在命令行运行 <code>grunt serve</code> 就可以做到了
+这么好的功能当然不是yeoman特有的功能，只要你会用Grunt就可以做到。如果你还不熟悉Gruntjs那么，它的<a href="http://gruntjs.com/getting-started" target="_blank" rel="external">官方页面</a>可以帮你快速熟悉常用配置（是的，你不需要知道怎么写grunt plugin)</p>
+<h3 id="我们需要哪些Grunt插件？">我们需要哪些Grunt插件？</h3><p>过去这个任务需要connect-livereload, grunt-contrib-connect, grunt-contrib-watch来配合完成. 感谢connect和grunt插件的开发者，我们现在只需要2个插件就可以做到这一切了：</p>
+<ul>
+<li><strong>grunt-contrib-connect</strong>, 用来充当一个静态文件服务器，本身集成了livereload功能，因此不再需要connect-livereload中间件</li>
+<li><strong>grunt-contrib-watch</strong>, 用来监视文件的改变，然后执行一些任务，同时保持 <strong>grunt-contrib-connect</strong> 的服务器一直开启</li>
+</ul>
+<p>为了不用不厌其烦的写grunt.loadNpmTask()，我们使用 <strong>load-grunt-tasks</strong> 来帮助我们自动加载这些插件，为了能看到grunt任务执行时间，我们加入了 <strong>time-grunt</strong> 插件，这几个插件对于本文的目的来说都不是必须的</p>
+<p>下面是配置好的package.json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">name</span>": <span class="value"><span class="string">"grunt-livereload-demo"</span></span>,</span><br><span class="line">  "<span class="attribute">version</span>": <span class="value"><span class="string">"0.0.1"</span></span>,</span><br><span class="line">  "<span class="attribute">devDependencies</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">grunt</span>": <span class="value"><span class="string">"~0.4.2"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-connect</span>": <span class="value"><span class="string">"~0.6.0"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-watch</span>": <span class="value"><span class="string">"~0.5.3"</span></span>,</span><br><span class="line">    "<span class="attribute">load-grunt-tasks</span>": <span class="value"><span class="string">"~0.3.0"</span></span>,</span><br><span class="line">    "<span class="attribute">time-grunt</span>": <span class="value"><span class="string">"~0.2.9"</span></span><br><span class="line">  </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来运行 <code>npm install</code> 来安装就可以了。</p>
+<h3 id="配置Gruntfile">配置Gruntfile</h3><p>现在假设你已经知道Gruntfile的结构。那么让我们开始先搭建一个可以serve静态文件的服务器</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span><span class="params">(grunt)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Load all grunt tasks automatically</span></span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'load-grunt-tasks'</span>)(grunt);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Time how long grunt task take. Can help when optimizing build times</span></span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'time-grunt'</span>)(grunt);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Configure grunt</span></span><br><span class="line">  grunt.initConfig(&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// The actual grunt server settings</span></span><br><span class="line">    connect: &#123;</span><br><span class="line">      options: &#123;</span><br><span class="line">        port: <span class="number">9000</span>,</span><br><span class="line">        hostname: <span class="string">'localhost'</span>, <span class="comment">// Change this to '0.0.0.0' to access the server from outside.</span></span><br><span class="line">        keepalive: <span class="literal">true</span> <span class="comment">// keep the server alive. so the grunt task won't stop</span></span><br><span class="line">      &#125;,</span><br><span class="line">      all: &#123;</span><br><span class="line">        options: &#123;</span><br><span class="line">          open: <span class="literal">true</span>,</span><br><span class="line">          base: [</span><br><span class="line">            <span class="string">'examples'</span> <span class="comment">// This is the base file folder. we suppose our index.html is located in this folder</span></span><br><span class="line">                       <span class="comment">// replace with the directory you want the files served from</span></span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Creates the 'serve' task</span></span><br><span class="line">  grunt.registerTask(<span class="string">'serve'</span>, [</span><br><span class="line">    <span class="string">'connect:all'</span></span><br><span class="line">  ]);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>我们用grunt-contrib-connect创建了一个静态服务器，并且能自动打开浏览器。我们把配置好的任务加入到自己创建的serve任务里，别在意这里只有一个子任务，我们接下来会加入其他任务到这个serve任务里。现在你可以在命令行里运行 <code>grunt serve</code> （从Gruntfile所在的目录）。grunt会自动打开浏览器并访问 <a href="http://localhost:9000" target="_blank" rel="external">http://localhost:9000</a> 并保持服务器一直运行下去（任务不会结束）。</p>
+<h3 id="Watch和livereload">Watch和livereload</h3><p>虽然我们已经配置好了一个静态文件服务器。但是 <strong>grunt-contrib-connect</strong> 并不会帮助我们监视文件变化并自动加载，我们需要 <strong>grunt-contrib-watch</strong> 来完成这项工作，并触发 <strong>grunt-contrib-connect</strong> 里面的livereload功能。所以我们要修改一下Gruntfile</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span><span class="params">(grunt)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Load all grunt tasks automatically</span></span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'load-grunt-tasks'</span>)(grunt);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Time how long grunt task take. Can help when optimizing build times</span></span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'time-grunt'</span>)(grunt);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Configure grunt</span></span><br><span class="line">  grunt.initConfig(&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// The actual grunt server settings</span></span><br><span class="line">    connect: &#123;</span><br><span class="line">      options: &#123;</span><br><span class="line">        port: <span class="number">9000</span>,</span><br><span class="line">        <span class="comment">// Change this to '0.0.0.0' to access the server from outside.</span></span><br><span class="line">        hostname: <span class="string">'localhost'</span>,</span><br><span class="line">        livereload: <span class="number">35729</span> <span class="comment">// This does not perform live reloading. this port is used by watch task to trigger a live reloading action.</span></span><br><span class="line">      &#125;,</span><br><span class="line">      all: &#123;</span><br><span class="line">        options: &#123;</span><br><span class="line">          open: <span class="literal">true</span>,</span><br><span class="line">          base: [</span><br><span class="line">            <span class="string">'examples'</span></span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//Watch files for changes, and run tasks base on the changed files.</span></span><br><span class="line">    watch: &#123;</span><br><span class="line"></span><br><span class="line">      livereload: &#123;</span><br><span class="line">        options: &#123;</span><br><span class="line">          livereload: <span class="string">'&lt;%= connect.options.livereload %&gt;'</span> <span class="comment">// this port must be same with the connect livereload port</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// Watch whatever files you needed.</span></span><br><span class="line">        files: [</span><br><span class="line">          <span class="string">'examples/*.html'</span>,</span><br><span class="line">          <span class="string">'examples/styles/&#123;,*/&#125;*.css'</span>,</span><br><span class="line">          <span class="string">'examples/scripts/(,*/&#125;*.js'</span>,</span><br><span class="line">          <span class="string">'examples/images/&#123;,*/&#125;*.&#123;png,jpg,jpeg,gif,webp,svg&#125;'</span></span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Creates the 'serve' task</span></span><br><span class="line">  grunt.registerTask(<span class="string">'serve'</span>, [</span><br><span class="line">    <span class="string">'connect:all'</span>,</span><br><span class="line">    <span class="string">'watch'</span></span><br><span class="line">  ]);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>我们新修改的配置把connect任务的keepalive选项去掉了，换成livereload。因为watch会帮我们让grunt task挂起而不停止，所以不再需要keepalive。这里我们将livereload的端口号设置为35729。你也可以设置成其他的端口，不过必须要在watch的livereload选项里设置成相同的端口。
+新加入了一个watch任务，这里我们配置了livereload的端口。配置了需要监视的文件。当这些文件发生改变时，watch任务就会触发livereload。让浏览器刷新页面。最后，我们把这两个任务按照先后顺序组合成serve任务，注意watch必须在后面，因为watch之后的任务永远不会被执行，同时我们也需要watch帮我们保持服务器一直运行。</p>
+<p>接下来运行 <code>grunt serve</code> 就可以看到一个跟刚才一样的页面在浏览器窗口中打开了。不同的是，这次你修改任何监视范围内的文件，都会实时的反映在浏览器上，可以说做到的了实时预览。当你需要结束服务器的时候，使用Ctrl+C。
+watch并不止能做这些，它还可以让less自动编译，自动运行jshint检查js文件的语法。connect还可以和grunt-connect-proxy结合来制作本地代理访问其他域名的api而不用处理跨域问题。当你觉得某种开发方式不够酷的时候，想想grunt吧。如果你没有找到合适的插件，就自己编写一个。Have a good day!</p>
+
+      
+    </div>
+  </div>
+  <div class="article-additional">
+    <div class="social-buttons">
+      <a data-url="http://nya.io/Node-js/grunt-livereload-for-realtime-preview/" data-id="ci83407or000ruk0fees8beug" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+      </a>
+    </div>
+    
+<a href="http://nya.io/Node-js/grunt-livereload-for-realtime-preview/#disqus_thread" class="comment-count mobile-meta">
+  Comments
+</a>
+
+    
+  <ul class="tag-list nav-menu mobile-meta">
+    
+      <li>
+        <a href="/tags/Gruntjs/">#Gruntjs</a>
+      </li>
+    
+      <li>
+        <a href="/tags/Node-js/">#Node.js</a>
+      </li>
+    
+  </ul>
+
+  </div>
+  <div class="article-meta">
+    <a href="/Node-js/grunt-livereload-for-realtime-preview/" class="post-date">
+  <time datetime="2014-02-06T05:40:42.000Z">2月 06 2014</time>
+</a>
+    
+<a href="http://nya.io/Node-js/grunt-livereload-for-realtime-preview/#disqus_thread" class="comment-count">
+  Comments
+</a>
+
+    
+  <ul class="tag-list">
+    
+      <li>
+        <a href="/tags/Gruntjs/">#Gruntjs</a>
+      </li>
+    
+      <li>
+        <a href="/tags/Node-js/">#Node.js</a>
+      </li>
+    
+  </ul>
+
+  </div>
+</article>
+
+
+
+  <article class="article-container">
+  <a href="/miscellaneous/hello-nyaio/" class="post-date mobile-meta">
+  <time datetime="2013-12-28T13:20:11.000Z">12月 28 2013</time>
+</a>
+  <div class="article-content">
+    <header class="article-header">
+      
+        
+
+<h1>
+  <a href="/miscellaneous/hello-nyaio/">Hello nya.io</a>
+</h1>
+
+
+      
+    </header>
+    <div class="article-entry">
+      
+        <p>似乎很早就有搭建blog来记录一些技术上的心得这样的想法，不过碍于自己的行动力方面有些不足加上租用主机搭建wordpress又有些麻烦，而Octopress是ruby写的又不想学ruby，就一直都没有付诸行动。不过最近对NodeJS的兴趣和发现了Hexo这样的好工具，让我有了想要尝试blog的想法，于是这个blog就这样诞生了。</p>
+<p>说起来，这个域名起的也很随便，一开始只是想要一个又短又好记的域名，没想到这个域名可以满足全部的要求，只是现在都没想好站名。索性就叫nyanyanya好了。域名注册过程要感谢<a href="https://plus.google.com/+PhoenixNemo/about" target="_blank" rel="external">Phenix Nemo</a>的帮助，他提供了域名注册的代理服务和域名挂靠的服务。另外hexo这个好用的工具也是他推荐的。没有他的帮助，这个blog也不会这么快的搭建起来。</p>
+<p>最近我在为公司制作一个统计系统的前端页面，用到了Yeoman，AngularJS，Bootstrap，NodeJS，expressjs这些工具和技术，所以近期会尝试写一些关于这方面的文章吧。鉴于本人水平有限，如果有什么错误或者不够清晰的地方，希望能够批评指正。</p>
+
+      
+    </div>
+  </div>
+  <div class="article-additional">
+    <div class="social-buttons">
+      <a data-url="http://nya.io/miscellaneous/hello-nyaio/" data-id="ci83407op000ouk0f84hs2h3h" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+      </a>
+    </div>
+    
+<a href="http://nya.io/miscellaneous/hello-nyaio/#disqus_thread" class="comment-count mobile-meta">
+  Comments
+</a>
+
+    
+  </div>
+  <div class="article-meta">
+    <a href="/miscellaneous/hello-nyaio/" class="post-date">
+  <time datetime="2013-12-28T13:20:11.000Z">12月 28 2013</time>
+</a>
+    
+<a href="http://nya.io/miscellaneous/hello-nyaio/#disqus_thread" class="comment-count">
+  Comments
+</a>
+
+    
+  </div>
+</article>
+
+
+
+</section>
+
+<section class="pagination-holder">
+
+  <a class="pager pull-left" href="/page/2/">
+    <i class="fa fa-chevron-left"></i>
+    NEWER POSTS
+  </a>
+
+
+</section>
+
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+
+      <section class="copyright">
+        Nyasoft © 2015
+      </section>
+
+      <section class="designedby">
+        Theme
+        <a href="#">Timeline</a>
+        Designed By
+        Nyasoft
+      </section>
+
+      <section class="poweredby">
+        Powered By
+        <a href="http://hexo.io/">Hexo</a>
+      </section>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  var disqus_shortname = 'lordfriend';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script type="text/javascript" src="/js/cf26f8f0.jquery.js"></script>
+<script src="/fancybox/source/jquery.fancybox.js" type="text/javascript"></script>
+<script type="text/javascript" src="/js/33415e49.caption.js"></script>
+</body>
