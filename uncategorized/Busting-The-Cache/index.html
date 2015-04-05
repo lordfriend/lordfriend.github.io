@@ -6,19 +6,19 @@
   <meta name="HandheldFriendly" content="True"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   
-  <title>Nyasoft</title>
+  <title>Busting The Cache | Nyasoft</title>
   
     <link rel="alternative" href="/atom.xml" title="Nyasoft" type="application/atom+xml">
   
-  <meta name="description" content="Nyasoft is a blog about web and android development technology">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Nyasoft">
-<meta property="og:url" content="http://nya.io/index.html">
+  <meta name="description" content="Last week, I completed my new hexo theme, but newly added page were broken because the stylesheet were not updated with the page. This was caused by the cache either on browser side or on the CDN of g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Busting The Cache">
+<meta property="og:url" content="http://nya.io/uncategorized/Busting-The-Cache/index.html">
 <meta property="og:site_name" content="Nyasoft">
-<meta property="og:description" content="Nyasoft is a blog about web and android development technology">
+<meta property="og:description" content="Last week, I completed my new hexo theme, but newly added page were broken because the stylesheet were not updated with the page. This was caused by the cache either on browser side or on the CDN of g">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nyasoft">
-<meta name="twitter:description" content="Nyasoft is a blog about web and android development technology">
+<meta name="twitter:title" content="Busting The Cache">
+<meta name="twitter:description" content="Last week, I completed my new hexo theme, but newly added page were broken because the stylesheet were not updated with the page. This was caused by the cache either on browser side or on the CDN of g">
   <link rel="stylesheet" href="/css/2bb849c6.styles.css">
   <link rel="stylesheet" href="/fancybox/source/jquery.fancybox.css" type="text/css">
   
@@ -94,8 +94,6 @@
 </nav>
 
 <div class="container">
-  <section class="article-list">
-
   <article class="article-container">
   <a href="/uncategorized/Busting-The-Cache/" class="post-date mobile-meta">
   <time datetime="2015-04-05T02:58:36.000Z">4月 05 2015</time>
@@ -106,7 +104,7 @@
         
 
 <h1>
-  <a href="/uncategorized/Busting-The-Cache/">Busting The Cache</a>
+  Busting The Cache
 </h1>
 
 
@@ -150,10 +148,6 @@ First let’s write a file hash method. This method accepts two arguments: file 
       </a>
     </div>
     
-<a href="http://nya.io/uncategorized/Busting-The-Cache/#disqus_thread" class="comment-count mobile-meta">
-  Comments
-</a>
-
     
   </div>
   <div class="article-meta">
@@ -161,303 +155,15 @@ First let’s write a file hash method. This method accepts two arguments: file 
   <time datetime="2015-04-05T02:58:36.000Z">4月 05 2015</time>
 </a>
     
-<a href="http://nya.io/uncategorized/Busting-The-Cache/#disqus_thread" class="comment-count">
-  Comments
-</a>
-
     
   </div>
 </article>
 
 
-
-  <article class="article-container">
-  <a href="/uncategorized/Add-About-Page/" class="post-date mobile-meta">
-  <time datetime="2015-03-31T13:41:48.000Z">3月 31 2015</time>
-</a>
-  <div class="article-content">
-    <header class="article-header">
-      
-        
-
-<h1>
-  <a href="/uncategorized/Add-About-Page/">Add About Page</a>
-</h1>
-
-
-      
-    </header>
-    <div class="article-entry">
-      
-        <p>Finally, this new blog theme has completed. A new about page is available, you can see the description and authors from about page.</p>
-
-      
-    </div>
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
-  <div class="article-additional">
-    <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/Add-About-Page/" data-id="ci840hunz001h840fptk146ph" class="article-share-link">
-        <i class="fa fa-share"></i>
-        Share
-      </a>
-    </div>
-    
-<a href="http://nya.io/uncategorized/Add-About-Page/#disqus_thread" class="comment-count mobile-meta">
-  Comments
-</a>
-
-    
-  </div>
-  <div class="article-meta">
-    <a href="/uncategorized/Add-About-Page/" class="post-date">
-  <time datetime="2015-03-31T13:41:48.000Z">3月 31 2015</time>
-</a>
-    
-<a href="http://nya.io/uncategorized/Add-About-Page/#disqus_thread" class="comment-count">
-  Comments
-</a>
-
-    
-  </div>
-</article>
-
-
-
-  <article class="article-container">
-  <a href="/uncategorized/Fix-Theme-bug-in-Safari/" class="post-date mobile-meta">
-  <time datetime="2015-03-31T02:44:23.000Z">3月 31 2015</time>
-</a>
-  <div class="article-content">
-    <header class="article-header">
-      
-        
-
-<h1>
-  <a href="/uncategorized/Fix-Theme-bug-in-Safari/">Fix Theme bug in Safari</a>
-</h1>
-
-
-      
-    </header>
-    <div class="article-entry">
-      
-        <p>I found my new theme behaves strange in iOS. After an inspect, I found this was caused by missing the vendor prefix of some css property.</p>
-<p>From caniuse.com I know that the 3d transform property although is supported by Safari and iOS, but it is still needed a vendor prefix to make it work. After add the <code>-webkit-</code> prefix. the bug
-on iOS disappeared. For convenience, I using a grunt task <code>grunt-autoprefixer</code> to do this automatically.</p>
-
-      
-    </div>
-  </div>
-  <div class="article-additional">
-    <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/Fix-Theme-bug-in-Safari/" data-id="ci840hunu001d840f9m2q7q57" class="article-share-link">
-        <i class="fa fa-share"></i>
-        Share
-      </a>
-    </div>
-    
-<a href="http://nya.io/uncategorized/Fix-Theme-bug-in-Safari/#disqus_thread" class="comment-count mobile-meta">
-  Comments
-</a>
-
-    
-  <ul class="tag-list nav-menu mobile-meta">
-    
-      <li>
-        <a href="/tags/css/">#css</a>
-      </li>
-    
-  </ul>
-
-  </div>
-  <div class="article-meta">
-    <a href="/uncategorized/Fix-Theme-bug-in-Safari/" class="post-date">
-  <time datetime="2015-03-31T02:44:23.000Z">3月 31 2015</time>
-</a>
-    
-<a href="http://nya.io/uncategorized/Fix-Theme-bug-in-Safari/#disqus_thread" class="comment-count">
-  Comments
-</a>
-
-    
-  <ul class="tag-list">
-    
-      <li>
-        <a href="/tags/css/">#css</a>
-      </li>
-    
-  </ul>
-
-  </div>
-</article>
-
-
-
-  <article class="article-container">
-  <a href="/uncategorized/Add-archives-layout/" class="post-date mobile-meta">
-  <time datetime="2015-03-23T11:51:25.000Z">3月 23 2015</time>
-</a>
-  <div class="article-content">
-    <header class="article-header">
-      
-        
-
-<h1>
-  <a href="/uncategorized/Add-archives-layout/">Add Archives Layout</a>
-</h1>
-
-
-      
-    </header>
-    <div class="article-entry">
-      
-        <p>Archives page is not very useful, but as a hexo theme, I think this is an important feature. So this page was redesigned and coded as you could see. Enjoy.</p>
-
-      
-    </div>
-  </div>
-  <div class="article-additional">
-    <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/Add-archives-layout/" data-id="ci840huny001g840fbak2gkx9" class="article-share-link">
-        <i class="fa fa-share"></i>
-        Share
-      </a>
-    </div>
-    
-<a href="http://nya.io/uncategorized/Add-archives-layout/#disqus_thread" class="comment-count mobile-meta">
-  Comments
-</a>
-
-    
-  </div>
-  <div class="article-meta">
-    <a href="/uncategorized/Add-archives-layout/" class="post-date">
-  <time datetime="2015-03-23T11:51:25.000Z">3月 23 2015</time>
-</a>
-    
-<a href="http://nya.io/uncategorized/Add-archives-layout/#disqus_thread" class="comment-count">
-  Comments
-</a>
-
-    
-  </div>
-</article>
-
-
-
-  <article class="article-container">
-  <a href="/uncategorized/New-Hexo-Theme/" class="post-date mobile-meta">
-  <time datetime="2015-02-08T08:33:40.000Z">2月 08 2015</time>
-</a>
-  <div class="article-content">
-    <header class="article-header">
-      
-        
-
-<h1>
-  <a href="/uncategorized/New-Hexo-Theme/">New Hexo Theme</a>
-</h1>
-
-
-      
-    </header>
-    <div class="article-entry">
-      
-        <p>For long time, I have to use the default theme <code>landscape</code>, because I always want to make a very magnificence theme which may require far more out of my toolbox and ability.
-Until now, I decide to make this blog a pure programming and technology oriented. So I decided to develop an brief and clear theme. That is the theme <code>timeline</code>.</p>
-<p>This theme is made from ground. Almost everything, I have to learn from hexo official site, where its document is not very detailed.
-To save time, I made a decision that I would use the technology which I already handled of. So this theme is designed with Adobe Edge Reflow CC, made with less, ejs and a little jquery.
- Also, I use grunt to build a early preview version to check the design and some css styles. In fact, it’s not a good practice to develop a hexo theme.</p>
-<p>It is worth to talk about the interesting things when developing this theme, Some of these may have someone to not make a mistake.</p>
-<p>This theme is design with Adobe Edge Reflow CC, this means I’ll to make a responsive design at very first. so I’ll have to develop with both desktop and mobile screen.
- Luckly, Chrome has a emulator can provide different device screen size to preview the result. But when I previewed with that,
- All of my fonts became very big (almost scaled 3 times bigger) and the content were out of screen on mobile devices.
- Debug this wasted a lot of time until I found I missed a meta tag to declare the <code>viewport</code> and <code>initial-scale</code> factor.</p>
-<p>Then I add this meta tag then everything looks good.
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"viewport"</span> <span class="attribute">content</span>=<span class="value">"width=device-width, initial-scale=1.0"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>To make the navigation bar more accessible on mobile devices. I want to make a drawer navigator which may be very similar to the drawer of Android app.
-At first, I made this very jquery, write some code and debug, this was time waste. Then I found a method called <a href="http://css-tricks.com/the-checkbox-hack/" target="_blank" rel="external">checkbox hack</a>
- which is far more easy to create a navigator drawer and with no javascript need! The mystery is you can make a invisible checkbox (whether make it opacity=0 or move it out of screen)
- and then attach one or more labels with it, these labels are clickable and styleable.
- Another key technology is <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/General_sibling_selectors" target="_blank" rel="external">general sibling selectors</a>
- which make it possible to use the :checked pseudo class to define a different styles for the drawer and backdrop element based on the checkbox state.</p>
-<p>it is almost like this:
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"checkbox"</span> <span class="attribute">id</span>=<span class="value">"drawer-toggle"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">label</span> <span class="attribute">for</span>=<span class="value">"drawer-toggle"</span> <span class="attribute">class</span>=<span class="value">"drawer-label"</span>&gt;</span>Drawer Button<span class="tag">&lt;/<span class="title">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"drawer"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">label</span> <span class="attribute">for</span>=<span class="value">"drawer-toggle"</span> <span class="attribute">class</span>=<span class="value">"backdrop"</span>&gt;</span><span class="tag">&lt;/<span class="title">label</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#drawer-toggle &#123;&#10;    opacity: 0;&#10;    position: absolute;&#10;&#125;&#10;&#10;.drawer-label &#123;&#10;    // you can make any styles what you want your drawer toggle button to be.&#10;&#125;&#10;&#10;.drawer &#123;&#10;    transition: transform 0.2s ease-out;&#10;    transform: translate3d(-100px, 0, 0); // we move the drawer out of screen when initialized.&#10;    position: fixed;&#10;    top: 0;&#10;    left: 0;&#10;    width: 100px;&#10;    height: 100%;&#10;&#125;&#10;&#10;.backdrop &#123;&#10;    display: none;&#10;    position: fixed;&#10;    top: 0;&#10;    left: 0;&#10;    width: 100%;&#10;    height: 100%;&#10;&#125;&#10;&#10;// then came the interesting part.&#10;&#10;#drawer-toggle:checked ~ .drawer &#123;&#10;    transform: translate3d(0, 0, 0);&#10;&#125;&#10;&#10;#drawer-toggle:checked ~ .backdrop &#123;&#10;    display:block;&#10;&#125;</span><br></pre></td></tr></table></figure>
-<p>This technology has very good browser compatibility. even with IE9 but If you want to be compatible with the older browser, You may consider a javascript version. But I don’t care.</p>
-<p>After I almost complete the styles and layout development and began to convert html to ejs template. I finally found a project called hexo-theme-unit-test.
- Which is actually a sample blog with every type of post. What I need is copy may theme into its themes folder. and modify the _config.yml.
-  But, when I run the command <code>hexo server</code> it didn’t work! After tried serveral times, I found this unit-test project lack some dependency declarations in its package.json.
-  This would result in the ejs template not being rendered. after installed the dependencies. it works well. If you want to develop a theme, you should work with this project,
-   no need to config a grunt task. and write a pure html file.</p>
-<p>This hexo theme is still in development, some pages and functions are not available, the styles need to be tweaked, I’ll continue work with this.</p>
-
-      
-    </div>
-  </div>
-  <div class="article-additional">
-    <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/New-Hexo-Theme/" data-id="ci840hunq0016840f0325516k" class="article-share-link">
-        <i class="fa fa-share"></i>
-        Share
-      </a>
-    </div>
-    
-<a href="http://nya.io/uncategorized/New-Hexo-Theme/#disqus_thread" class="comment-count mobile-meta">
-  Comments
-</a>
-
-    
-  <ul class="tag-list nav-menu mobile-meta">
-    
-      <li>
-        <a href="/tags/css/">#css</a>
-      </li>
-    
-      <li>
-        <a href="/tags/hexo/">#hexo</a>
-      </li>
-    
-  </ul>
-
-  </div>
-  <div class="article-meta">
-    <a href="/uncategorized/New-Hexo-Theme/" class="post-date">
-  <time datetime="2015-02-08T08:33:40.000Z">2月 08 2015</time>
-</a>
-    
-<a href="http://nya.io/uncategorized/New-Hexo-Theme/#disqus_thread" class="comment-count">
-  Comments
-</a>
-
-    
-  <ul class="tag-list">
-    
-      <li>
-        <a href="/tags/css/">#css</a>
-      </li>
-    
-      <li>
-        <a href="/tags/hexo/">#hexo</a>
-      </li>
-    
-  </ul>
-
-  </div>
-</article>
-
-
-
-</section>
-
-<section class="pagination-holder">
-
-
-  <a class="pager pull-right" href="/page/2/">
-    OLDER POSTS
-    <i class="fa fa-chevron-right"></i>
-  </a>
-
 </section>
 
 </div>
@@ -489,11 +195,13 @@ At first, I made this very jquery, write some code and debug, this was time wast
 <script>
   var disqus_shortname = 'lordfriend';
   
+  var disqus_url = 'http://nya.io/uncategorized/Busting-The-Cache/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>

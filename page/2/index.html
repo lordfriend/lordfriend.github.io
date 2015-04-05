@@ -20,7 +20,7 @@
 <meta name="twitter:title" content="Nyasoft">
 <meta name="twitter:description" content="Nyasoft is a blog about web and android development technology">
   <link rel="stylesheet" href="/css/2bb849c6.styles.css">
-  <link rel="stylesheet" href="/fancybox/source/6c55951c.jquery.fancybox.css">
+  <link rel="stylesheet" href="/fancybox/source/jquery.fancybox.css" type="text/css">
   
 </head>
 <body>
@@ -97,6 +97,82 @@
   <section class="article-list">
 
   <article class="article-container">
+  <a href="/uncategorized/Make-Action-Bar-Overlay-work-with-ListView-or-GridView/" class="post-date mobile-meta">
+  <time datetime="2014-12-31T06:45:20.000Z">12月 31 2014</time>
+</a>
+  <div class="article-content">
+    <header class="article-header">
+      
+        
+
+<h1>
+  <a href="/uncategorized/Make-Action-Bar-Overlay-work-with-ListView-or-GridView/">Make Action Bar Overlay work with ListView or GridView</a>
+</h1>
+
+
+      
+    </header>
+    <div class="article-entry">
+      
+        <p>ActionBar pattern is widely used since Honeycomb released. As the action bar actually take space of your limited screen, you may need make the action bar semi-transparent to save some space.
+ActionBar API provide an method to overlay your action bar on your screen content. as the <a href="http://developer.android.com/training/basics/actionbar/overlaying.html" target="_blank" rel="external">training material</a> mentioned:</p>
+<p>Just add a style <code>windowActionBarOverlay</code> and set it true. The snippet is copied from android developer.
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">resources</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- the theme applied to the application or activity --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">style</span> <span class="attribute">name</span>=<span class="value">"CustomActionBarTheme"</span></span><br><span class="line">           <span class="attribute">parent</span>=<span class="value">"@android:style/Theme.AppCompat"</span>&gt;</span><span class="css"></span><br><span class="line">        &lt;<span class="tag">item</span> <span class="tag">name</span>="<span class="rule"><span class="attribute">android</span>:<span class="value">windowActionBarOverlay<span class="string">"&gt;true&lt;/item&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!-- Support library compatibility --&gt;</span><br><span class="line">        &lt;item name="</span>windowActionBarOverlay<span class="string">"&gt;true&lt;/item&gt;</span><br><span class="line">    </span></span></span></span><span class="tag">&lt;/<span class="title">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">resources</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>But the training material from android developer site isn’t use an ListView or GridView with ActionBar overlay. When you just follow its instruction to set paddingTop on your ListView or GridView.
+You may not get expected effect. the scrolling content is just cut from the air. like the left side show on the figure.</p>
+<p><img src="/img/cliptopadding.gif" alt="clipToPadding and scrollBarStyle Protip"></p>
+<p>To achieve the right effect like the right side. Android Developers Official G+ page give a tip on G+ <a href="https://plus.google.com/+AndroidDevelopers/posts/LpAA7q4jw9M" target="_blank" rel="external">https://plus.google.com/+AndroidDevelopers/posts/LpAA7q4jw9M</a></p>
+<p>Add an attribute <code>android:clipToPadding</code> to your ListView or GridView and set it false. then you can set your paddingTop on your ListView or GridView as your ActionBar height.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">ListView</span></span><br><span class="line">    …</span><br><span class="line">    <span class="attribute">android:clipToPadding</span>=<span class="value">"false"</span></span><br><span class="line">    <span class="attribute">android:scrollbarStyle</span>=<span class="value">"outsideOverlay"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+  </div>
+  <div class="article-additional">
+    <div class="social-buttons">
+      <a data-url="http://nya.io/uncategorized/Make-Action-Bar-Overlay-work-with-ListView-or-GridView/" data-id="ci840huns001b840f5809ah7h" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+      </a>
+    </div>
+    
+<a href="http://nya.io/uncategorized/Make-Action-Bar-Overlay-work-with-ListView-or-GridView/#disqus_thread" class="comment-count mobile-meta">
+  Comments
+</a>
+
+    
+  <ul class="tag-list nav-menu mobile-meta">
+    
+      <li>
+        <a href="/tags/Android/">#Android</a>
+      </li>
+    
+  </ul>
+
+  </div>
+  <div class="article-meta">
+    <a href="/uncategorized/Make-Action-Bar-Overlay-work-with-ListView-or-GridView/" class="post-date">
+  <time datetime="2014-12-31T06:45:20.000Z">12月 31 2014</time>
+</a>
+    
+<a href="http://nya.io/uncategorized/Make-Action-Bar-Overlay-work-with-ListView-or-GridView/#disqus_thread" class="comment-count">
+  Comments
+</a>
+
+    
+  <ul class="tag-list">
+    
+      <li>
+        <a href="/tags/Android/">#Android</a>
+      </li>
+    
+  </ul>
+
+  </div>
+</article>
+
+
+
+  <article class="article-container">
   <a href="/uncategorized/Remove-Verbose-Log-In-Production/" class="post-date mobile-meta">
   <time datetime="2014-10-25T07:45:12.000Z">10月 25 2014</time>
 </a>
@@ -125,7 +201,7 @@
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/Remove-Verbose-Log-In-Production/" data-id="ci83407oy0013uk0ffkoiq1fo" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/Remove-Verbose-Log-In-Production/" data-id="ci840huno0013840fw7mbit38" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -217,7 +293,7 @@
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/monokai-webstorm-for-brackets/" data-id="ci83407om000huk0ftgxc7obq" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/monokai-webstorm-for-brackets/" data-id="ci840hunb000h840f8alsyenw" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -303,7 +379,7 @@
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/AngularJS/nya-bootstrap-select-may-need-a-rewrite/" data-id="ci83407oi000cuk0fq3a45eqr" class="article-share-link">
+      <a data-url="http://nya.io/AngularJS/nya-bootstrap-select-may-need-a-rewrite/" data-id="ci840hun9000c840f8upfotpr" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -410,7 +486,7 @@ Promise的出现解决了这两个需求，又保持了javascript异步的优势
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/Node-js/promise-in-nodejs-get-rid-of-callback-hell/" data-id="ci83407ob0003uk0fsej861j0" class="article-share-link">
+      <a data-url="http://nya.io/Node-js/promise-in-nodejs-get-rid-of-callback-hell/" data-id="ci840hun20003840f69bgvvbo" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -460,88 +536,6 @@ Promise的出现解决了这两个需求，又保持了javascript异步的优势
     
       <li>
         <a href="/tags/Promise/">#Promise</a>
-      </li>
-    
-  </ul>
-
-  </div>
-</article>
-
-
-
-  <article class="article-container">
-  <a href="/uncategorized/getting-started-with-nya-bootstrap-select/" class="post-date mobile-meta">
-  <time datetime="2014-04-12T13:51:47.000Z">4月 12 2014</time>
-</a>
-  <div class="article-content">
-    <header class="article-header">
-      
-        
-
-<h1>
-  <a href="/uncategorized/getting-started-with-nya-bootstrap-select/">开始使用nya-bootstrap-select</a>
-</h1>
-
-
-      
-    </header>
-    <div class="article-entry">
-      
-        <p>好吧，这个post是个广告，如果你是一名web前端开发者，使用AngularJS，bootstrap和jquery。那么我在这里向你推荐我最近发布的一个开源项目：<a href="http://nya.io/nya-bootstrap-select/" target="_blank" rel="external"><strong>nya-bootstrap-select</strong></a></p>
-<p>nya-bootstrap-select 是一个对<a href="http://silviomoreto.github.io/bootstrap-select/" target="_blank" rel="external">bootstrap-select</a>的包装，让这个功能强大的jquery插件可以用angularjs特有的风格在angularjs程序中使用。</p>
-<p>依赖：
-    AngularJS 1.0+(这个是当然的） bootstrap-select 1.3+  bootstrap css （支持2.x和3.x）</p>
-<p>安装：
-推荐使用<a href="http://bower.io" target="_blank" rel="external">bower</a>来安装，可以帮助你自动处理依赖关系。</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">bower</span> install nya-bootstrap-<span class="built_in">select</span></span><br></pre></td></tr></table></figure>
-<p>将src/nya-bootstrap-select.js加入到你的页面里</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"bower_components/nya-bootstrap-select/src/nya-bootstrap-select.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>将 nya.bootstrap.select作为angular app的依赖</p>
-<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">angular.<span class="keyword">module</span>(<span class="symbol">'yourApp'</span>, [<span class="symbol">'nya</span>.bootstrap.select']);</span><br></pre></td></tr></table></figure>
-<p>现在可以开始使用了。本文就只列举一个例子，更多例子请参考文档 <a href="http://nya.io/nya-bootstrap-select/" target="_blank" rel="external">http://nya.io/nya-bootstrap-select/</a></p>
-<p>在select标签里，加入class <code>nya-selectpicker</code> 也可以作为属性加入。 然后将你的scope变量绑定到ng-model上，这样你可以获取到选择的值。
-假设你的$scope.myOptions就是选项的条件
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">select</span> <span class="keyword">class</span>=<span class="string">"nya-selectpicker"</span> data-container=<span class="string">"body"</span> ng-model=<span class="string">"myModel"</span> ng-options=<span class="string">"c.value for c in myOptions"</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;/<span class="keyword">select</span>&gt;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-  </div>
-  <div class="article-additional">
-    <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/getting-started-with-nya-bootstrap-select/" data-id="ci83407ot000wuk0fv25467cs" class="article-share-link">
-        <i class="fa fa-share"></i>
-        Share
-      </a>
-    </div>
-    
-<a href="http://nya.io/uncategorized/getting-started-with-nya-bootstrap-select/#disqus_thread" class="comment-count mobile-meta">
-  Comments
-</a>
-
-    
-  <ul class="tag-list nav-menu mobile-meta">
-    
-      <li>
-        <a href="/tags/AngularJS/">#AngularJS</a>
-      </li>
-    
-  </ul>
-
-  </div>
-  <div class="article-meta">
-    <a href="/uncategorized/getting-started-with-nya-bootstrap-select/" class="post-date">
-  <time datetime="2014-04-12T13:51:47.000Z">4月 12 2014</time>
-</a>
-    
-<a href="http://nya.io/uncategorized/getting-started-with-nya-bootstrap-select/#disqus_thread" class="comment-count">
-  Comments
-</a>
-
-    
-  <ul class="tag-list">
-    
-      <li>
-        <a href="/tags/AngularJS/">#AngularJS</a>
       </li>
     
   </ul>

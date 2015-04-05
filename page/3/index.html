@@ -20,7 +20,7 @@
 <meta name="twitter:title" content="Nyasoft">
 <meta name="twitter:description" content="Nyasoft is a blog about web and android development technology">
   <link rel="stylesheet" href="/css/2bb849c6.styles.css">
-  <link rel="stylesheet" href="/fancybox/source/6c55951c.jquery.fancybox.css">
+  <link rel="stylesheet" href="/fancybox/source/jquery.fancybox.css" type="text/css">
   
 </head>
 <body>
@@ -97,6 +97,88 @@
   <section class="article-list">
 
   <article class="article-container">
+  <a href="/uncategorized/getting-started-with-nya-bootstrap-select/" class="post-date mobile-meta">
+  <time datetime="2014-04-12T13:51:47.000Z">4月 12 2014</time>
+</a>
+  <div class="article-content">
+    <header class="article-header">
+      
+        
+
+<h1>
+  <a href="/uncategorized/getting-started-with-nya-bootstrap-select/">开始使用nya-bootstrap-select</a>
+</h1>
+
+
+      
+    </header>
+    <div class="article-entry">
+      
+        <p>好吧，这个post是个广告，如果你是一名web前端开发者，使用AngularJS，bootstrap和jquery。那么我在这里向你推荐我最近发布的一个开源项目：<a href="http://nya.io/nya-bootstrap-select/" target="_blank" rel="external"><strong>nya-bootstrap-select</strong></a></p>
+<p>nya-bootstrap-select 是一个对<a href="http://silviomoreto.github.io/bootstrap-select/" target="_blank" rel="external">bootstrap-select</a>的包装，让这个功能强大的jquery插件可以用angularjs特有的风格在angularjs程序中使用。</p>
+<p>依赖：
+    AngularJS 1.0+(这个是当然的） bootstrap-select 1.3+  bootstrap css （支持2.x和3.x）</p>
+<p>安装：
+推荐使用<a href="http://bower.io" target="_blank" rel="external">bower</a>来安装，可以帮助你自动处理依赖关系。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">bower</span> install nya-bootstrap-<span class="built_in">select</span></span><br></pre></td></tr></table></figure>
+<p>将src/nya-bootstrap-select.js加入到你的页面里</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"bower_components/nya-bootstrap-select/src/nya-bootstrap-select.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>将 nya.bootstrap.select作为angular app的依赖</p>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">angular.<span class="keyword">module</span>(<span class="symbol">'yourApp'</span>, [<span class="symbol">'nya</span>.bootstrap.select']);</span><br></pre></td></tr></table></figure>
+<p>现在可以开始使用了。本文就只列举一个例子，更多例子请参考文档 <a href="http://nya.io/nya-bootstrap-select/" target="_blank" rel="external">http://nya.io/nya-bootstrap-select/</a></p>
+<p>在select标签里，加入class <code>nya-selectpicker</code> 也可以作为属性加入。 然后将你的scope变量绑定到ng-model上，这样你可以获取到选择的值。
+假设你的$scope.myOptions就是选项的条件
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">select</span> <span class="keyword">class</span>=<span class="string">"nya-selectpicker"</span> data-container=<span class="string">"body"</span> ng-model=<span class="string">"myModel"</span> ng-options=<span class="string">"c.value for c in myOptions"</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;/<span class="keyword">select</span>&gt;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+  </div>
+  <div class="article-additional">
+    <div class="social-buttons">
+      <a data-url="http://nya.io/uncategorized/getting-started-with-nya-bootstrap-select/" data-id="ci840hunj000w840fzl5873xq" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+      </a>
+    </div>
+    
+<a href="http://nya.io/uncategorized/getting-started-with-nya-bootstrap-select/#disqus_thread" class="comment-count mobile-meta">
+  Comments
+</a>
+
+    
+  <ul class="tag-list nav-menu mobile-meta">
+    
+      <li>
+        <a href="/tags/AngularJS/">#AngularJS</a>
+      </li>
+    
+  </ul>
+
+  </div>
+  <div class="article-meta">
+    <a href="/uncategorized/getting-started-with-nya-bootstrap-select/" class="post-date">
+  <time datetime="2014-04-12T13:51:47.000Z">4月 12 2014</time>
+</a>
+    
+<a href="http://nya.io/uncategorized/getting-started-with-nya-bootstrap-select/#disqus_thread" class="comment-count">
+  Comments
+</a>
+
+    
+  <ul class="tag-list">
+    
+      <li>
+        <a href="/tags/AngularJS/">#AngularJS</a>
+      </li>
+    
+  </ul>
+
+  </div>
+</article>
+
+
+
+  <article class="article-container">
   <a href="/AngularJS/angular-jquery-load-order/" class="post-date mobile-meta">
   <time datetime="2014-02-08T13:50:03.000Z">2月 08 2014</time>
 </a>
@@ -127,7 +209,7 @@
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/AngularJS/angular-jquery-load-order/" data-id="ci83407ov000yuk0fnrftr2wy" class="article-share-link">
+      <a data-url="http://nya.io/AngularJS/angular-jquery-load-order/" data-id="ci840hunk000y840f3kz9epp3" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -222,7 +304,7 @@ watch并不止能做这些，它还可以让less自动编译，自动运行jshin
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/Node-js/grunt-livereload-for-realtime-preview/" data-id="ci83407or000ruk0fees8beug" class="article-share-link">
+      <a data-url="http://nya.io/Node-js/grunt-livereload-for-realtime-preview/" data-id="ci840hung000r840fg8v6628v" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -300,7 +382,7 @@ watch并不止能做这些，它还可以让less自动编译，自动运行jshin
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/miscellaneous/hello-nyaio/" data-id="ci83407op000ouk0f84hs2h3h" class="article-share-link">
+      <a data-url="http://nya.io/miscellaneous/hello-nyaio/" data-id="ci840hune000o840fqjnte638" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
