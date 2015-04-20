@@ -7,7 +7,7 @@
     <link>http://nya.io/</link>
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[Nyasoft is a blog about web and android development technology]]></description>
-    <pubDate>Mon, 20 Apr 2015 07:17:07 GMT</pubDate>
+    <pubDate>Mon, 20 Apr 2015 07:25:02 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -28,9 +28,9 @@ it using <a href="http://angular.github.io/protractor/" target="_blank" rel="ext
 and make its own implementation to retrieve the value of <code>value</code> attribute.</p>
 <p>As the W3C standards says:</p>
 <blockquote>
-<p>This integer attributes indicates the current ordinal value of the item in the list as defined by the <ol> element. The only allowed value for this attribute is a number, even if the list is displayed with Roman numerals or letters. List items that follow this one continue numbering from the value set. The value attribute has no meaning for unordered lists (<ul>) or for menus (<menu>).</menu></ul></ol></p>
+<p>This integer attributes indicates the current ordinal value of the item in the list as defined by the <code>&lt;ol&gt;</code> element. The only allowed value for this attribute is a number, even if the list is displayed with Roman numerals or letters. List items that follow this one continue numbering from the value set. The value attribute has no meaning for unordered lists (<code>&lt;ul&gt;</code>) or for menus (<code>&lt;menu&gt;</code>).</p>
 </blockquote>
-<p>The list element has a <code>value</code> attribute which <strong>only accept integer value</strong>. Although I can use a String value in my AngularJS app but this is not warranted
+<p>The list element has a <code>value</code> attribute which <strong>only accepts integer value</strong>. Although I can use a String value in my AngularJS app but this is not warranted
 by standard and can varies between implementations. Just as the selenium implementation, the WebElement.getAttribute(‘value’) on my directive always
 return <code>0</code>. This is not my expected.</p>
 <p>In conclusion, It is recommended for those who want to use some predefined attribute on their own directive to look up the standard whether its behavior has already been defined to
