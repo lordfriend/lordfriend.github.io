@@ -97,6 +97,102 @@
   <section class="article-list">
 
   <article class="article-container">
+  <a href="/uncategorized/Use-Angular-Http-Interceptors/" class="post-date mobile-meta">
+  <time datetime="2015-05-08T08:20:11.000Z">5月 08 2015</time>
+</a>
+  <div class="article-content">
+    <header class="article-header">
+      
+        
+
+<h1>
+  <a href="/uncategorized/Use-Angular-Http-Interceptors/">Use Angular $http Interceptors</a>
+</h1>
+
+
+      
+    </header>
+    <div class="article-entry">
+      
+        <p>When working with HTTP API of an backend, you need to handle various response from those APIs and make your own reaction on either success or failure response.
+But those APIs are not always designed RESTfully, It may not indicate an error status using the status code of HTTP. Instead, it may use an special field in the
+response body to indicate a status of an response. This implicate an burden on the developer who will not able to use the facility provided by the
+framework like <code>$http</code>. Normally, <code>$http()</code> would return an promise object which can be chained with <code>then</code> method to handle both success or failure response.
+But when an HTTP request doesn’t using HTTP status code to indicate its result, your error handlers will never be called.
+In this case, you may need to check the response entity carefully to see whether its special field indicates its failure status.</p>
+<p>I’v also encountered this issue when joining a new team. And I think I can’t change the API definition. So the only way to save time is do some tricky.
+And this issue can be easily solved by using $http interceptors.</p>
+<p>Assume that I have an API which return an object like this.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"status"</span>: <span class="number">0</span>, <span class="comment">// 0 indicates an successful request, otherwise the request is a failure one.</span></span><br><span class="line">    <span class="string">"data"</span>: &#123;</span><br><span class="line">    &#125;,           <span class="comment">// this is what the real data resides in.</span></span><br><span class="line">    <span class="string">"message"</span>: <span class="literal">null</span> <span class="comment">// If status isn't 0, this message will contain the error information.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Well, this API definition is very straightforward though it is not follow the RESTful style. What I need do is to interceptor every response made from this API
+and check the value of <code>status</code>. If it is not 0, change the statusCode of the response object to &gt;=400. Besides, that I also want to make an global interceptor
+to achieve this so I can get rid of write same check code everywhere.</p>
+<p>Let’s start to see what $http interceptors can help.</p>
+<p>According to <a href="https://docs.angularjs.org/api/ng/service/$http#interceptors" target="_blank" rel="external">AngularJS Document</a> Interceptors are factory which can modify request and response.
+You need define some interceptors and push them into <code>$httpProvider.interceptors</code> array in your <code>config</code> function.</p>
+<p>Let’s define an interceptor to check the status and reject the response if status code is not 0.
+Assume we have an API pattern is <code>/api/:someTarget</code> (:someTarget is an parameter which can be changed by need).</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> restInterceptor = angular.module(<span class="string">'RestInterceptor'</span>, []);</span><br><span class="line"></span><br><span class="line">restInterceptor.factory(<span class="string">'RestInterceptor'</span>, <span class="function"><span class="keyword">function</span><span class="params">($q)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="comment">// response function will be invoked when request responds with successful status.</span></span><br><span class="line">        <span class="comment">// This is usually means the status code is 200~299 or an redirect response</span></span><br><span class="line">        response: <span class="function"><span class="keyword">function</span><span class="params">(response)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> apiPattern = <span class="regexp">/^(?:\/api\/)\S+/</span>;</span><br><span class="line">            <span class="comment">// we need filter the config object to ensure only check our API response.</span></span><br><span class="line">            <span class="keyword">if</span>(apiPattern.test(response.config.url) &amp;&amp; <span class="keyword">typeof</span> response.data.status !== <span class="string">'undefined'</span> &amp;&amp; response.data.status !== <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">//here we modify the http status code to 400 indicates this should be treated as an error.</span></span><br><span class="line">                response.status = <span class="number">400</span>;</span><br><span class="line">                <span class="comment">// reject this response will let the end point caller's error handler be called. also, you can</span></span><br><span class="line">                <span class="comment">// chain an responseError interceptor to handle this error.</span></span><br><span class="line">                <span class="keyword">return</span> $q.reject(response);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> response;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>This code snippet create an interceptor to check the normal response whose HTTP status code is usually 200, but modify an response if its data.status doesn’t
+equal 0. and modify the HTTP status code to 400. so we can treat the API as an RESTful API and All the facility provided by angular or three party dependency
+can be used directly without redundant check code.</p>
+<p>The rest job is to make the interceptor work, we need to push this factory into <code>$httpProvider.interceptors</code>. <strong>Note that the invoke order of <code>response</code> and <code>responseError</code>
+interceptors are in reverse registration order. This is not clearly documented in official document.</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = angular.module(<span class="string">'myApp'</span>, [<span class="string">'RestInterceptor'</span>]);</span><br><span class="line">app.config(<span class="function"><span class="keyword">function</span><span class="params">($httpProvider, RestInterceptor)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// if you have other interceptors to handle error response, make sure to push "RestInterceptor" at last.</span></span><br><span class="line">    $httpProvider.interceptors.push(<span class="string">'OtherErrorHandlerInterceptor'</span>);</span><br><span class="line">    $httpProvider.interceptors.push(<span class="string">'RestInterceptor'</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>Now you can write your code without need to check whether you got an error in your success handler.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = angular.module(<span class="string">'myApp'</span>);</span><br><span class="line">app.controller(<span class="string">'SomeController'</span>, <span class="function"><span class="keyword">function</span><span class="params">($scope, $http)</span></span>&#123;</span><br><span class="line">    $http.get(<span class="string">'/api/first-item'</span>)</span><br><span class="line">        .success(<span class="function"><span class="keyword">function</span><span class="params">(data, status, headers, config)</span> </span>&#123;</span><br><span class="line">            <span class="comment">// write your code for successful request</span></span><br><span class="line">            <span class="comment">// result object will be always valid.</span></span><br><span class="line">            <span class="built_in">console</span>.log(data);</span><br><span class="line">        &#125;)</span><br><span class="line">        .error(<span class="function"><span class="keyword">function</span><span class="params">(data, status, headers, config)</span> </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(status); <span class="comment">// will print 400 when data.data.status != 0</span></span><br><span class="line">        &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>Next time, I will use interceptor to write an notification module which will automatically make a toast notification to user when an API request
+is failed. can combine with the RestInterceptor I just have wrote.</p>
+
+      
+    </div>
+  </div>
+  <div class="article-additional">
+    <div class="social-buttons">
+      <a data-url="http://nya.io/uncategorized/Use-Angular-Http-Interceptors/" data-id="ci9fftqhl0013sils3mpbt0p1" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+      </a>
+    </div>
+    
+<a href="http://nya.io/uncategorized/Use-Angular-Http-Interceptors/#disqus_thread" class="comment-count mobile-meta">
+  Comments
+</a>
+
+    
+  <ul class="tag-list nav-menu mobile-meta">
+    
+      <li>
+        <a href="/tags/AngularJS/">#AngularJS</a>
+      </li>
+    
+  </ul>
+
+  </div>
+  <div class="article-meta">
+    <a href="/uncategorized/Use-Angular-Http-Interceptors/" class="post-date">
+  <time datetime="2015-05-08T08:20:11.000Z">5月 08 2015</time>
+</a>
+    
+<a href="http://nya.io/uncategorized/Use-Angular-Http-Interceptors/#disqus_thread" class="comment-count">
+  Comments
+</a>
+
+    
+  <ul class="tag-list">
+    
+      <li>
+        <a href="/tags/AngularJS/">#AngularJS</a>
+      </li>
+    
+  </ul>
+
+  </div>
+</article>
+
+
+
+  <article class="article-container">
   <a href="/AngularJS/Beware-Of-Using-value-Attribute-On-list-element/" class="post-date mobile-meta">
   <time datetime="2015-04-20T04:05:49.000Z">4月 20 2015</time>
 </a>
@@ -137,7 +233,7 @@ avoid conflicts and variants between implementations.</p>
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/AngularJS/Beware-Of-Using-value-Attribute-On-list-element/" data-id="ci8pkfmhi001gasls95e4adi8" class="article-share-link">
+      <a data-url="http://nya.io/AngularJS/Beware-Of-Using-value-Attribute-On-list-element/" data-id="ci9fftqhy001isilsm0fbskfb" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -236,7 +332,7 @@ First let’s write a file hash method. This method accepts two arguments: file 
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/Busting-The-Cache/" data-id="ci8pkfmhf001faslscy5cpktz" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/Busting-The-Cache/" data-id="ci9fftqhw001hsilsl3td5jm7" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -288,7 +384,7 @@ First let’s write a file hash method. This method accepts two arguments: file 
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/Add-About-Page/" data-id="ci8pkfmhm001naslsgb0qmgxh" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/Add-About-Page/" data-id="ci9fftqi3001psilsl7z9kha2" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -342,7 +438,7 @@ on iOS disappeared. For convenience, I using a grunt task <code>grunt-autoprefix
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/Fix-Theme-bug-in-Safari/" data-id="ci8pkfmhd001daslsfmjcll71" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/Fix-Theme-bug-in-Safari/" data-id="ci9fftqhu001fsilshdca691i" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -380,58 +476,6 @@ on iOS disappeared. For convenience, I using a grunt task <code>grunt-autoprefix
     
   </ul>
 
-  </div>
-</article>
-
-
-
-  <article class="article-container">
-  <a href="/uncategorized/Add-archives-layout/" class="post-date mobile-meta">
-  <time datetime="2015-03-23T11:51:25.000Z">3月 23 2015</time>
-</a>
-  <div class="article-content">
-    <header class="article-header">
-      
-        
-
-<h1>
-  <a href="/uncategorized/Add-archives-layout/">Add Archives Layout</a>
-</h1>
-
-
-      
-    </header>
-    <div class="article-entry">
-      
-        <p>Archives page is not very useful, but as a hexo theme, I think this is an important feature. So this page was redesigned and coded as you could see. Enjoy.</p>
-
-      
-    </div>
-  </div>
-  <div class="article-additional">
-    <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/Add-archives-layout/" data-id="ci8pkfmhl001masls1nno26p8" class="article-share-link">
-        <i class="fa fa-share"></i>
-        Share
-      </a>
-    </div>
-    
-<a href="http://nya.io/uncategorized/Add-archives-layout/#disqus_thread" class="comment-count mobile-meta">
-  Comments
-</a>
-
-    
-  </div>
-  <div class="article-meta">
-    <a href="/uncategorized/Add-archives-layout/" class="post-date">
-  <time datetime="2015-03-23T11:51:25.000Z">3月 23 2015</time>
-</a>
-    
-<a href="http://nya.io/uncategorized/Add-archives-layout/#disqus_thread" class="comment-count">
-  Comments
-</a>
-
-    
   </div>
 </article>
 

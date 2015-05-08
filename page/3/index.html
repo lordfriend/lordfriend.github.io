@@ -97,6 +97,76 @@
   <section class="article-list">
 
   <article class="article-container">
+  <a href="/AngularJS/nya-bootstrap-select-may-need-a-rewrite/" class="post-date mobile-meta">
+  <time datetime="2014-05-08T15:18:14.000Z">5月 08 2014</time>
+</a>
+  <div class="article-content">
+    <header class="article-header">
+      
+        
+
+<h1>
+  <a href="/AngularJS/nya-bootstrap-select-may-need-a-rewrite/">nya-bootstrap-select也许应该完全重写了</a>
+</h1>
+
+
+      
+    </header>
+    <div class="article-entry">
+      
+        <p>就在不久前，我还对这个插件很乐观，不过在解决了最近的两个bug之后，我觉得同angularjs自带的directive作斗争是一件不愉快的事情。</p>
+<p>由于nya-bootstrap-select依赖bootstra-select这个jQuery插件，而该插件需要使用select标签来定义下拉选框。但Angular内部已经把select标签作为了一个directive，并且定义了一些列特殊行为。这些行为导致了目前各种冲突，其中一个问题就是，当我们使用ng-options来生成选项的时候。select directive会先生成一个?值的option作为默认选项，一开始为了保持美观和一致性，我删除了这个选项，但我发现angular内部似乎会错误的引用位置，导致当select的值由无变成确定值时，删除后的第一个实际option被删除。
+这带来了严重的问题，最后不得已，我只能保留那个？的option，但这样很难看。看起来避免使用select标签才是根本解决之道。</p>
+
+      
+    </div>
+  </div>
+  <div class="article-additional">
+    <div class="social-buttons">
+      <a data-url="http://nya.io/AngularJS/nya-bootstrap-select-may-need-a-rewrite/" data-id="ci9fftqh5000csilsbdy932dy" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+      </a>
+    </div>
+    
+<a href="http://nya.io/AngularJS/nya-bootstrap-select-may-need-a-rewrite/#disqus_thread" class="comment-count mobile-meta">
+  Comments
+</a>
+
+    
+  <ul class="tag-list nav-menu mobile-meta">
+    
+      <li>
+        <a href="/tags/AngularJS/">#AngularJS</a>
+      </li>
+    
+  </ul>
+
+  </div>
+  <div class="article-meta">
+    <a href="/AngularJS/nya-bootstrap-select-may-need-a-rewrite/" class="post-date">
+  <time datetime="2014-05-08T15:18:14.000Z">5月 08 2014</time>
+</a>
+    
+<a href="http://nya.io/AngularJS/nya-bootstrap-select-may-need-a-rewrite/#disqus_thread" class="comment-count">
+  Comments
+</a>
+
+    
+  <ul class="tag-list">
+    
+      <li>
+        <a href="/tags/AngularJS/">#AngularJS</a>
+      </li>
+    
+  </ul>
+
+  </div>
+</article>
+
+
+
+  <article class="article-container">
   <a href="/Node-js/promise-in-nodejs-get-rid-of-callback-hell/" class="post-date mobile-meta">
   <time datetime="2014-05-06T14:42:00.000Z">5月 06 2014</time>
 </a>
@@ -160,7 +230,7 @@ Promise的出现解决了这两个需求，又保持了javascript异步的优势
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/Node-js/promise-in-nodejs-get-rid-of-callback-hell/" data-id="ci8pkfmgj0003aslsueryu76f" class="article-share-link">
+      <a data-url="http://nya.io/Node-js/promise-in-nodejs-get-rid-of-callback-hell/" data-id="ci9fftqgy0003silslbhcxyte" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -258,7 +328,7 @@ Promise的出现解决了这两个需求，又保持了javascript异步的优势
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/getting-started-with-nya-bootstrap-select/" data-id="ci8pkfmgz000wasls9214ytj6" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/getting-started-with-nya-bootstrap-select/" data-id="ci9fftqhf000wsils3uqh5kj6" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -332,7 +402,7 @@ Promise的出现解决了这两个需求，又保持了javascript异步的优势
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/AngularJS/angular-jquery-load-order/" data-id="ci8pkfmh0000yaslsayzg727z" class="article-share-link">
+      <a data-url="http://nya.io/AngularJS/angular-jquery-load-order/" data-id="ci9fftqhg000ysilsfoylne5f" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -427,7 +497,7 @@ watch并不止能做这些，它还可以让less自动编译，自动运行jshin
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/Node-js/grunt-livereload-for-realtime-preview/" data-id="ci8pkfmgw000raslsukxqor9v" class="article-share-link">
+      <a data-url="http://nya.io/Node-js/grunt-livereload-for-realtime-preview/" data-id="ci9fftqhc000rsilss6b1dh05" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -478,60 +548,6 @@ watch并不止能做这些，它还可以让less自动编译，自动运行jshin
 
 
 
-  <article class="article-container">
-  <a href="/miscellaneous/hello-nyaio/" class="post-date mobile-meta">
-  <time datetime="2013-12-28T13:20:11.000Z">12月 28 2013</time>
-</a>
-  <div class="article-content">
-    <header class="article-header">
-      
-        
-
-<h1>
-  <a href="/miscellaneous/hello-nyaio/">Hello nya.io</a>
-</h1>
-
-
-      
-    </header>
-    <div class="article-entry">
-      
-        <p>似乎很早就有搭建blog来记录一些技术上的心得这样的想法，不过碍于自己的行动力方面有些不足加上租用主机搭建wordpress又有些麻烦，而Octopress是ruby写的又不想学ruby，就一直都没有付诸行动。不过最近对NodeJS的兴趣和发现了Hexo这样的好工具，让我有了想要尝试blog的想法，于是这个blog就这样诞生了。</p>
-<p>说起来，这个域名起的也很随便，一开始只是想要一个又短又好记的域名，没想到这个域名可以满足全部的要求，只是现在都没想好站名。索性就叫nyanyanya好了。域名注册过程要感谢<a href="https://plus.google.com/+PhoenixNemo/about" target="_blank" rel="external">Phenix Nemo</a>的帮助，他提供了域名注册的代理服务和域名挂靠的服务。另外hexo这个好用的工具也是他推荐的。没有他的帮助，这个blog也不会这么快的搭建起来。</p>
-<p>最近我在为公司制作一个统计系统的前端页面，用到了Yeoman，AngularJS，Bootstrap，NodeJS，expressjs这些工具和技术，所以近期会尝试写一些关于这方面的文章吧。鉴于本人水平有限，如果有什么错误或者不够清晰的地方，希望能够批评指正。</p>
-
-      
-    </div>
-  </div>
-  <div class="article-additional">
-    <div class="social-buttons">
-      <a data-url="http://nya.io/miscellaneous/hello-nyaio/" data-id="ci8pkfmgu000oaslsi3ctnsct" class="article-share-link">
-        <i class="fa fa-share"></i>
-        Share
-      </a>
-    </div>
-    
-<a href="http://nya.io/miscellaneous/hello-nyaio/#disqus_thread" class="comment-count mobile-meta">
-  Comments
-</a>
-
-    
-  </div>
-  <div class="article-meta">
-    <a href="/miscellaneous/hello-nyaio/" class="post-date">
-  <time datetime="2013-12-28T13:20:11.000Z">12月 28 2013</time>
-</a>
-    
-<a href="http://nya.io/miscellaneous/hello-nyaio/#disqus_thread" class="comment-count">
-  Comments
-</a>
-
-    
-  </div>
-</article>
-
-
-
 </section>
 
 <section class="pagination-holder">
@@ -541,6 +557,11 @@ watch并不止能做这些，它还可以让less自动编译，自动运行jshin
     NEWER POSTS
   </a>
 
+
+  <a class="pager pull-right" href="/page/4/">
+    OLDER POSTS
+    <i class="fa fa-chevron-right"></i>
+  </a>
 
 </section>
 

@@ -97,6 +97,58 @@
   <section class="article-list">
 
   <article class="article-container">
+  <a href="/uncategorized/Add-archives-layout/" class="post-date mobile-meta">
+  <time datetime="2015-03-23T11:51:25.000Z">3月 23 2015</time>
+</a>
+  <div class="article-content">
+    <header class="article-header">
+      
+        
+
+<h1>
+  <a href="/uncategorized/Add-archives-layout/">Add Archives Layout</a>
+</h1>
+
+
+      
+    </header>
+    <div class="article-entry">
+      
+        <p>Archives page is not very useful, but as a hexo theme, I think this is an important feature. So this page was redesigned and coded as you could see. Enjoy.</p>
+
+      
+    </div>
+  </div>
+  <div class="article-additional">
+    <div class="social-buttons">
+      <a data-url="http://nya.io/uncategorized/Add-archives-layout/" data-id="ci9fftqi1001osilsrns85wyb" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+      </a>
+    </div>
+    
+<a href="http://nya.io/uncategorized/Add-archives-layout/#disqus_thread" class="comment-count mobile-meta">
+  Comments
+</a>
+
+    
+  </div>
+  <div class="article-meta">
+    <a href="/uncategorized/Add-archives-layout/" class="post-date">
+  <time datetime="2015-03-23T11:51:25.000Z">3月 23 2015</time>
+</a>
+    
+<a href="http://nya.io/uncategorized/Add-archives-layout/#disqus_thread" class="comment-count">
+  Comments
+</a>
+
+    
+  </div>
+</article>
+
+
+
+  <article class="article-container">
   <a href="/uncategorized/New-Hexo-Theme/" class="post-date mobile-meta">
   <time datetime="2015-02-08T08:33:40.000Z">2月 08 2015</time>
 </a>
@@ -148,7 +200,7 @@ At first, I made this very jquery, write some code and debug, this was time wast
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/New-Hexo-Theme/" data-id="ci8pkfmh80016aslsmyf09nzy" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/New-Hexo-Theme/" data-id="ci9fftqhp0018sils55dtwq4y" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -232,7 +284,7 @@ You may not get expected effect. the scrolling content is just cut from the air.
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/Make-Action-Bar-Overlay-work-with-ListView-or-GridView/" data-id="ci8pkfmhb001baslsk1fcwg6g" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/Make-Action-Bar-Overlay-work-with-ListView-or-GridView/" data-id="ci9fftqhs001dsils5ztv4mxy" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -304,7 +356,7 @@ You may not get expected effect. the scrolling content is just cut from the air.
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/Remove-Verbose-Log-In-Production/" data-id="ci8pkfmh60013aslszkhbb26x" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/Remove-Verbose-Log-In-Production/" data-id="ci9fftqhn0015sils0eoczkzy" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -396,7 +448,7 @@ You may not get expected effect. the scrolling content is just cut from the air.
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/monokai-webstorm-for-brackets/" data-id="ci8pkfmgs000hasls8y3yqc7r" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/monokai-webstorm-for-brackets/" data-id="ci9fftqh8000hsilsl1k477ge" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -446,76 +498,6 @@ You may not get expected effect. the scrolling content is just cut from the air.
     
       <li>
         <a href="/tags/Webstorm/">#Webstorm</a>
-      </li>
-    
-  </ul>
-
-  </div>
-</article>
-
-
-
-  <article class="article-container">
-  <a href="/AngularJS/nya-bootstrap-select-may-need-a-rewrite/" class="post-date mobile-meta">
-  <time datetime="2014-05-08T15:18:14.000Z">5月 08 2014</time>
-</a>
-  <div class="article-content">
-    <header class="article-header">
-      
-        
-
-<h1>
-  <a href="/AngularJS/nya-bootstrap-select-may-need-a-rewrite/">nya-bootstrap-select也许应该完全重写了</a>
-</h1>
-
-
-      
-    </header>
-    <div class="article-entry">
-      
-        <p>就在不久前，我还对这个插件很乐观，不过在解决了最近的两个bug之后，我觉得同angularjs自带的directive作斗争是一件不愉快的事情。</p>
-<p>由于nya-bootstrap-select依赖bootstra-select这个jQuery插件，而该插件需要使用select标签来定义下拉选框。但Angular内部已经把select标签作为了一个directive，并且定义了一些列特殊行为。这些行为导致了目前各种冲突，其中一个问题就是，当我们使用ng-options来生成选项的时候。select directive会先生成一个?值的option作为默认选项，一开始为了保持美观和一致性，我删除了这个选项，但我发现angular内部似乎会错误的引用位置，导致当select的值由无变成确定值时，删除后的第一个实际option被删除。
-这带来了严重的问题，最后不得已，我只能保留那个？的option，但这样很难看。看起来避免使用select标签才是根本解决之道。</p>
-
-      
-    </div>
-  </div>
-  <div class="article-additional">
-    <div class="social-buttons">
-      <a data-url="http://nya.io/AngularJS/nya-bootstrap-select-may-need-a-rewrite/" data-id="ci8pkfmgq000caslsbv6g01l8" class="article-share-link">
-        <i class="fa fa-share"></i>
-        Share
-      </a>
-    </div>
-    
-<a href="http://nya.io/AngularJS/nya-bootstrap-select-may-need-a-rewrite/#disqus_thread" class="comment-count mobile-meta">
-  Comments
-</a>
-
-    
-  <ul class="tag-list nav-menu mobile-meta">
-    
-      <li>
-        <a href="/tags/AngularJS/">#AngularJS</a>
-      </li>
-    
-  </ul>
-
-  </div>
-  <div class="article-meta">
-    <a href="/AngularJS/nya-bootstrap-select-may-need-a-rewrite/" class="post-date">
-  <time datetime="2014-05-08T15:18:14.000Z">5月 08 2014</time>
-</a>
-    
-<a href="http://nya.io/AngularJS/nya-bootstrap-select-may-need-a-rewrite/#disqus_thread" class="comment-count">
-  Comments
-</a>
-
-    
-  <ul class="tag-list">
-    
-      <li>
-        <a href="/tags/AngularJS/">#AngularJS</a>
       </li>
     
   </ul>
