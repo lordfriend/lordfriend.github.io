@@ -7,7 +7,7 @@
     <link>http://nya.io/</link>
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[Nyasoft is a blog about web and android development technology]]></description>
-    <pubDate>Fri, 08 May 2015 10:53:42 GMT</pubDate>
+    <pubDate>Fri, 08 May 2015 10:56:20 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -28,9 +28,9 @@ In this case, you may need to check the response entity carefully to see whether
 And this issue can be easily solved by using $http interceptors.</p>
 <p>Assume that I have an API which return an object like this.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"status"</span>: <span class="number">0</span>, <span class="comment">// 0 indicates an successful request, otherwise the request is a failure one.</span></span><br><span class="line">    <span class="string">"data"</span>: &#123;</span><br><span class="line">    &#125;,           <span class="comment">// this is what the real data resides in.</span></span><br><span class="line">    <span class="string">"message"</span>: <span class="literal">null</span> <span class="comment">// If status isn't 0, this message will contain the error information.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Well, this API definition is very straightforward though it is not follow the RESTful style. What I need do is to interceptor every response made from this API
+<p>Well, this API definition is very straightforward though it is not follow the RESTful style. What I need do is to intercept every response made from this API
 and check the value of <code>status</code>. If it is not 0, change the statusCode of the response object to &gt;=400. Besides, that I also want to make an global interceptor
-to achieve this so I can get rid of write same check code everywhere.</p>
+to achieve this so I can get rid of writing same check code everywhere.</p>
 <p>Let’s start to see what $http interceptors can help.</p>
 <p>According to <a href="https://docs.angularjs.org/api/ng/service/$http#interceptors" target="_blank" rel="external">AngularJS Document</a> Interceptors are factory which can modify request and response.
 You need define some interceptors and push them into <code>$httpProvider.interceptors</code> array in your <code>config</code> function.</p>
