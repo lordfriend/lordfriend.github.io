@@ -97,6 +97,180 @@
   <section class="article-list">
 
   <article class="article-container">
+  <a href="/uncategorized/make-a-list-view-in-angular/" class="post-date mobile-meta">
+  <time datetime="2017-04-11T06:35:43.000Z">4月 11 2017</time>
+</a>
+  <div class="article-content">
+    <header class="article-header">
+      
+        
+
+<h1>
+  <a href="/uncategorized/make-a-list-view-in-angular/">Make A List View In Angular</a>
+</h1>
+
+
+      
+    </header>
+    <div class="article-entry">
+      
+        <p>Recently, I’m working on an solution to show vast amount of card in a list and scroll smoothly on this list. Further more, the list should
+show a timeline meter on the side to allow user navigate to any position quickly just drag or click the timeline. This feature pose a challenge
+to develop a new kind of UI component which able to show any amount of card in screen without impact the performance.</p>
+<p>A tradition way to show large amount of data in a list is so called <em>infinite list</em> or <em>lazy loading</em> . A list loads data at 20-30 items per page until user reaches
+bottom of the list. then bumps the next page of data and appends to current list. This solution actually contributes to the initial loading
+performance but did not too much to the overall scrolling performance. Using this solution, user cannot quickly scroll to the last position of data.
+even worse, when you have loaded 2000-3000 items, your tab crashes.</p>
+<h2 id="Find_Another_Approach-">Find Another Approach.</h2><p>The reason why <em>lazy loading</em> or traditional <em>infinite list</em> doesn’t work is obvious. As long as you continue added items into your list, those
+DOM elements will exists until eats up all of your memory. So this solution is not fit for our requirements.</p>
+<p>If you ever have some experience on Android or iOS development. You may find the solution which has developed for a long time. Yes, that’s
+ListView (or RecyclerView, GridView) in Android and UITableView in iOS. They both use a similar idea which keep a limited amount of item on
+ the fly and trash the view which is out of current viewport. To reduce the performance expense on create new views, they also recycle the
+ trashed views and reuse them on demand. So this idea is what I choose for solving this problem.</p>
+<h3 id="First,_How_does_this_solution_work?">First, How does this solution work?</h3><p>The core of this solution is only maintaining a limited number of views in the list and keep remove and added necessary views into list when user
+scrolling the list. To make this possible we need to know the height of each view before performing a layout to place those views. In Android,
+the framework using a measurement procedure, but at web, we don’t have that mechanism, the dimension of an DOM element is control by css along
+with the element parent. So measurement on DOM is hard to do, we don’t want to discuss this topic at this article. We use a predefined height
+for each row. By doing this, we simplify the calculation of layout.</p>
+<p>Another requirement to make this solution possible is we need to know the total number of items of our list. This is usually not much hard to do.
+To make things simple, we also make a little change, we have all data loaded once, so we don’t need to write load on demand.</p>
+<p>Once we prepared data and container finish its layout, we will get <strong>container height</strong> , <strong>number of rows</strong>, <strong>row height</strong> . these information
+ is pretty enough for our list view to render a initial state.</p>
+<p><img src="/img/infinite-list-1.jpg" alt="Initial State"></p>
+<p>As you can see, our initial state only contains very limited number of elements. This is what we expect, another information we got from
+this picture is we have a scrollbar which indicates we have very long content to scroll. we use a straight forward method to calculate the total
+height of scroll content by simply multiply row height and item count. Here is the main DOM structure to make this possible.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- infinite-list has a height of 100% viewport height this height will be used to determine how many views to render --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"infinite-list"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- infinite-list-holder has a height of all --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"infinite-list-holder"</span> <span class="attribute">style</span>=<span class="value">"height: 140000px;"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">list-item-example</span>&gt;</span><span class="tag">&lt;/<span class="title">list-item-example</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>infinite-list</code> is the container of visible views, it use a <code>overflow-y: auto</code> css to make the <code>infinite-list-holder</code> scrollable.
+When this structure is established, browser will render a scrollbar for <code>infinite-list</code>.</p>
+<p>When user scroll down or up, the <code>infinite-list-holder</code> will scroll and together with its view content. meanwhile we listen to the
+scroll event to asynchronously calculate how far we have scrolled from initial position.</p>
+<p>THE key part of the solution can keep a low memory usage is keep calculating every view position relative to viewport, add views which
+ are about to visible in the viewport and remove views which is already out of viewport.</p>
+<p><img src="/img/infinite-list-2.jpg" alt="When content scrolling, remove and added views"></p>
+<p>This is really very intuitive solution. keep added and remove views as long as there are the right views in our viewport, user will feel
+like our list is filled with all of the data items. OK, this is simple. But how do we know which view is out of viewport, which view is
+about to add in viewport and how to place them in the correct position.</p>
+<h3 id="Do_the_layout">Do the layout</h3><p>we already have some basic information about our container <code>infinite-list</code>, we know its width and height. we also get height of every row
+ and total number of data. when we do layout at scrolling, we need one more information to know how much have we scrolled. This is not hard
+ to obtain. In all browser, we can use <code>element.scrollTop</code> property to know the relative distance between top of the scrolling content and
+  top of the wrapper content. (More detail, you can learn from <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollTop" target="_blank" rel="external">MDN</a>)</p>
+<p>Calculate the index of top most view relative to our viewport, remove any views before that index.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> firstIndex = <span class="built_in">Math</span>.floor(scrollTop / rowHeight);</span><br></pre></td></tr></table></figure>
+<p>Calculate the index of bottom most view relative to our viewport, remove any views after that index.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// we need this offset to complement the height of viewport. because a view may just cross the border of list-container</span></span><br><span class="line"><span class="keyword">let</span> firstViewOffset = scrollTop - firstIndex * rowHeight;</span><br><span class="line"><span class="comment">// containerHeight is equal to viewport height as we assumed</span></span><br><span class="line"><span class="keyword">let</span> lastIndex = <span class="built_in">Math</span>.ceil((containerHeight + firstViewOffset) / rowHeight) + firstIndex;</span><br></pre></td></tr></table></figure>
+<p>Once we get the index range, we can remove view not inside this range and added views according this range. To added view at correct position,
+we need calculate its top y coordinate relative the list-holder.
+This calculation is more easy. We can calculate a view y position base on row height and data item index:</p>
+<p>A view top y position relative to infinite-list-holder is <code>rowHeight * index</code></p>
+<p>The method we use to place our views on <code>infinite-list-holder</code> is using css3 translate3d and let each view’s position property be absolute.
+By using this method we get the hardware acceleration and not trigger any re-layout out side the <code>infinite-list-holder</code>. This is another
+ important performance trick.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">viewElement.style.transform = `translate3d(<span class="number">0</span>, $&#123;y&#125;px, <span class="number">0</span>)`;</span><br><span class="line">viewElement.style.webkitTransform = `translate3d(<span class="number">0</span>, $&#123;y&#125;px, <span class="number">0</span>)`;</span><br><span class="line">viewElement.style.width = `$&#123;containerWidth&#125;px`;</span><br><span class="line">viewElement.style.height = `$&#123;rowHeight&#125;px`;</span><br><span class="line">viewElement.style.position = <span class="string">'absolute'</span>;</span><br></pre></td></tr></table></figure>
+<p>Once styles is applied. insert view into <code>infinite-list-holder</code> at proper position, browser will render the view for us.</p>
+<p>This process will repeat whenever we need to do a layout operation. At the user aspect, the view will really scroll in the list.</p>
+<h3 id="Optimization-">Optimization.</h3><p>So far so good, We have give a smooth scrolling experience to user using our real <strong>infinite-list</strong> .but currently we only create a very
+simple example which using a simple structure for item view. What if we have a very complex view to render. we need to rapidly remove and
+add DOM element to our list-holder, the view element may have many object to initialize. many listener to add. Creating new object especially
+DOM element object is expensive. Those views in our list are very the same structure, the only different is there content. so we decide to
+do some optimization to reuse the views.</p>
+<p>To reuse view, we need modified our solution at two phase, remove and add phase. At remove phase, we don’t directly destroy that trashed view,
+we detach that view and move it into a recycle bin. we can create a class called <code>RecycleBin</code> to manage those recycled views. At add phase, we
+ first try to retrieve view from RecycleBin, if we find the same view with the same index we expect, we can directly reattach it back to list-holder,
+ because its content is the same. But if we don’t have that type of view, we can also pop a view from scrap views, and replace its binding data
+ with correct data at certain index. If you use a MVVM framework, the framework will do the rest things. only when we don’t have scraped views
+ from <code>RecycleBin</code>, we create a new view with data of certain index.</p>
+<p><img src="/img/infinite-list-3.jpg" alt="RecycleBin"></p>
+<p>Our modified version reduce the dom create and destroy, also reduce the new memory allocation and GC operation (though this is really depend
+on JS engine). A drawback of this modification is we increase a little more memory usage. But if you can write some simple strategy to control
+the total number of scrap views. No need to worry about run out of memory.</p>
+<p>So far we have briefly explained how our solution work. But we haven’t explained how to implement in Angular.</p>
+<h2 id="The_Angular_Implementation">The Angular Implementation</h2><p><em>we only cover the Angular 4 and above, if you find an AngularJS (1.x) implementation. You can read the code from <a href="https://github.com/ngFancy/ng-gridview" target="_blank" rel="external">this repository</a> to see how to
+implement this approach in Angular 1.5, although this is grid view which is a little complicated.</em></p>
+<p>In Angular, things are not much different. We still use the theory we have explained before plus a little angular feature.</p>
+<p>In Angular, there are component and directive ( include structural directive ) which can manipulate DOM as we need. Recall our feature requirement,
+Our list, in fact, has repeat structure which presents data in same form repeatedly. The idea flash in your mind first must be ngFor directive which
+ is a structural directive can clone its content repeatedly. The difference between ngFor and our directive is ngFor render all DOM in the collection
+ we don’t. So we use a similar directive called <code>infiniteFor</code> which has a very same usage.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">any</span> *<span class="attribute">infiniteFor</span>=<span class="value">"let row of collection"</span>&gt;</span></span><br><span class="line">    &#123;&#123;row&#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="title">any</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>By using these semantic we borrowed from ngFor, we can create a local variable binding to its template from the iterable collection
+In Angular we don’t have the concept <code>scope</code> but it is a very similar concept which using an object to store your local variable and bind to the template.
+We won’t use too much words to describe how ngFor implement. if you don’t understand and have interest in this, you can read official document:
+ <a href="https://angular.io/docs/ts/latest/guide/structural-directives.html#!#ngFor" target="_blank" rel="external">Structural Directive</a> and <a href="https://angular.io/docs/ts/latest/api/common/index/NgFor-directive.html" target="_blank" rel="external">ngFor API Guide</a></p>
+
+      
+    </div>
+  </div>
+  <div class="article-additional">
+    <div class="social-buttons">
+      <a data-url="http://nya.io/uncategorized/make-a-list-view-in-angular/" data-id="cj1emw8bs000oa9lsb5nqrmwb" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+      </a>
+    </div>
+    
+<a href="http://nya.io/uncategorized/make-a-list-view-in-angular/#disqus_thread" class="comment-count mobile-meta">
+  Comments
+</a>
+
+    
+  <ul class="tag-list nav-menu mobile-meta">
+    
+      <li>
+        <a href="/tags/Angular/">#Angular</a>
+      </li>
+    
+      <li>
+        <a href="/tags/InfiniteList/">#InfiniteList</a>
+      </li>
+    
+      <li>
+        <a href="/tags/ListView/">#ListView</a>
+      </li>
+    
+      <li>
+        <a href="/tags/Performance/">#Performance</a>
+      </li>
+    
+  </ul>
+
+  </div>
+  <div class="article-meta">
+    <a href="/uncategorized/make-a-list-view-in-angular/" class="post-date">
+  <time datetime="2017-04-11T06:35:43.000Z">4月 11 2017</time>
+</a>
+    
+<a href="http://nya.io/uncategorized/make-a-list-view-in-angular/#disqus_thread" class="comment-count">
+  Comments
+</a>
+
+    
+  <ul class="tag-list">
+    
+      <li>
+        <a href="/tags/Angular/">#Angular</a>
+      </li>
+    
+      <li>
+        <a href="/tags/InfiniteList/">#InfiniteList</a>
+      </li>
+    
+      <li>
+        <a href="/tags/ListView/">#ListView</a>
+      </li>
+    
+      <li>
+        <a href="/tags/Performance/">#Performance</a>
+      </li>
+    
+  </ul>
+
+  </div>
+</article>
+
+
+
+  <article class="article-container">
   <a href="/uncategorized/Use-Angular-Http-Interceptors/" class="post-date mobile-meta">
   <time datetime="2015-05-08T08:20:11.000Z">5月 08 2015</time>
 </a>
@@ -149,7 +323,7 @@ has failed. And will combine with the RestInterceptor I just have wrote.</p>
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/Use-Angular-Http-Interceptors/" data-id="ci9fftqhl0013sils3mpbt0p1" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/Use-Angular-Http-Interceptors/" data-id="cj1emw8c6001ca9ls0i7w6jlt" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -233,7 +407,7 @@ avoid conflicts and variants between implementations.</p>
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/AngularJS/Beware-Of-Using-value-Attribute-On-list-element/" data-id="ci9fftqhy001isilsm0fbskfb" class="article-share-link">
+      <a data-url="http://nya.io/AngularJS/Beware-Of-Using-value-Attribute-On-list-element/" data-id="cj1emw8co001ra9lsue7izrqr" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -332,7 +506,7 @@ First let’s write a file hash method. This method accepts two arguments: file 
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/Busting-The-Cache/" data-id="ci9fftqhw001hsilsl3td5jm7" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/Busting-The-Cache/" data-id="cj1emw8cn001qa9ls6ot4eetj" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -384,7 +558,7 @@ First let’s write a file hash method. This method accepts two arguments: file 
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/Add-About-Page/" data-id="ci9fftqi3001psilsl7z9kha2" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/Add-About-Page/" data-id="cj1emw8cs001ya9lsf7v94t6x" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -406,76 +580,6 @@ First let’s write a file hash method. This method accepts two arguments: file 
 </a>
 
     
-  </div>
-</article>
-
-
-
-  <article class="article-container">
-  <a href="/uncategorized/Fix-Theme-bug-in-Safari/" class="post-date mobile-meta">
-  <time datetime="2015-03-31T02:44:23.000Z">3月 31 2015</time>
-</a>
-  <div class="article-content">
-    <header class="article-header">
-      
-        
-
-<h1>
-  <a href="/uncategorized/Fix-Theme-bug-in-Safari/">Fix Theme bug in Safari</a>
-</h1>
-
-
-      
-    </header>
-    <div class="article-entry">
-      
-        <p>I found my new theme behaves strange in iOS. After an inspect, I found this was caused by missing the vendor prefix of some css property.</p>
-<p>From caniuse.com I know that the 3d transform property although is supported by Safari and iOS, but it is still needed a vendor prefix to make it work. After add the <code>-webkit-</code> prefix. the bug
-on iOS disappeared. For convenience, I using a grunt task <code>grunt-autoprefixer</code> to do this automatically.</p>
-
-      
-    </div>
-  </div>
-  <div class="article-additional">
-    <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/Fix-Theme-bug-in-Safari/" data-id="ci9fftqhu001fsilshdca691i" class="article-share-link">
-        <i class="fa fa-share"></i>
-        Share
-      </a>
-    </div>
-    
-<a href="http://nya.io/uncategorized/Fix-Theme-bug-in-Safari/#disqus_thread" class="comment-count mobile-meta">
-  Comments
-</a>
-
-    
-  <ul class="tag-list nav-menu mobile-meta">
-    
-      <li>
-        <a href="/tags/css/">#css</a>
-      </li>
-    
-  </ul>
-
-  </div>
-  <div class="article-meta">
-    <a href="/uncategorized/Fix-Theme-bug-in-Safari/" class="post-date">
-  <time datetime="2015-03-31T02:44:23.000Z">3月 31 2015</time>
-</a>
-    
-<a href="http://nya.io/uncategorized/Fix-Theme-bug-in-Safari/#disqus_thread" class="comment-count">
-  Comments
-</a>
-
-    
-  <ul class="tag-list">
-    
-      <li>
-        <a href="/tags/css/">#css</a>
-      </li>
-    
-  </ul>
-
   </div>
 </article>
 

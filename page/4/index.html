@@ -97,6 +97,101 @@
   <section class="article-list">
 
   <article class="article-container">
+  <a href="/Node-js/grunt-livereload-for-realtime-preview/" class="post-date mobile-meta">
+  <time datetime="2014-02-06T05:40:42.000Z">2月 06 2014</time>
+</a>
+  <div class="article-content">
+    <header class="article-header">
+      
+        
+
+<h1>
+  <a href="/Node-js/grunt-livereload-for-realtime-preview/">用Grunt与livereload构建实时预览的开发环境</a>
+</h1>
+
+
+      
+    </header>
+    <div class="article-entry">
+      
+        <p>自从用了<a href="http://yeoman.io" target="_blank" rel="external">yeoman</a>来开发angular.js之后，就喜欢上这个工具了，顺带也了解了整个workflow所用的所有工具，yeoman给我最深的印象就是它可以在开发的时候启动一个localhost的server来预览你的前端项目，并且能够实时反应你对文件的修改。想想把，你不在需要依赖昂贵又不准确的IDE进行WYSIWYG开发，也不需要自己动手去按F5不停的刷新页面，还要担心缓存问题。现在只要在命令行运行 <code>grunt serve</code> 就可以做到了
+这么好的功能当然不是yeoman特有的功能，只要你会用Grunt就可以做到。如果你还不熟悉Gruntjs那么，它的<a href="http://gruntjs.com/getting-started" target="_blank" rel="external">官方页面</a>可以帮你快速熟悉常用配置（是的，你不需要知道怎么写grunt plugin)</p>
+<h3 id="我们需要哪些Grunt插件？">我们需要哪些Grunt插件？</h3><p>过去这个任务需要connect-livereload, grunt-contrib-connect, grunt-contrib-watch来配合完成. 感谢connect和grunt插件的开发者，我们现在只需要2个插件就可以做到这一切了：</p>
+<ul>
+<li><strong>grunt-contrib-connect</strong>, 用来充当一个静态文件服务器，本身集成了livereload功能，因此不再需要connect-livereload中间件</li>
+<li><strong>grunt-contrib-watch</strong>, 用来监视文件的改变，然后执行一些任务，同时保持 <strong>grunt-contrib-connect</strong> 的服务器一直开启</li>
+</ul>
+<p>为了不用不厌其烦的写grunt.loadNpmTask()，我们使用 <strong>load-grunt-tasks</strong> 来帮助我们自动加载这些插件，为了能看到grunt任务执行时间，我们加入了 <strong>time-grunt</strong> 插件，这几个插件对于本文的目的来说都不是必须的</p>
+<p>下面是配置好的package.json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">name</span>": <span class="value"><span class="string">"grunt-livereload-demo"</span></span>,</span><br><span class="line">  "<span class="attribute">version</span>": <span class="value"><span class="string">"0.0.1"</span></span>,</span><br><span class="line">  "<span class="attribute">devDependencies</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">grunt</span>": <span class="value"><span class="string">"~0.4.2"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-connect</span>": <span class="value"><span class="string">"~0.6.0"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-watch</span>": <span class="value"><span class="string">"~0.5.3"</span></span>,</span><br><span class="line">    "<span class="attribute">load-grunt-tasks</span>": <span class="value"><span class="string">"~0.3.0"</span></span>,</span><br><span class="line">    "<span class="attribute">time-grunt</span>": <span class="value"><span class="string">"~0.2.9"</span></span><br><span class="line">  </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来运行 <code>npm install</code> 来安装就可以了。</p>
+<h3 id="配置Gruntfile">配置Gruntfile</h3><p>现在假设你已经知道Gruntfile的结构。那么让我们开始先搭建一个可以serve静态文件的服务器</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span><span class="params">(grunt)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Load all grunt tasks automatically</span></span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'load-grunt-tasks'</span>)(grunt);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Time how long grunt task take. Can help when optimizing build times</span></span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'time-grunt'</span>)(grunt);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Configure grunt</span></span><br><span class="line">  grunt.initConfig(&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// The actual grunt server settings</span></span><br><span class="line">    connect: &#123;</span><br><span class="line">      options: &#123;</span><br><span class="line">        port: <span class="number">9000</span>,</span><br><span class="line">        hostname: <span class="string">'localhost'</span>, <span class="comment">// Change this to '0.0.0.0' to access the server from outside.</span></span><br><span class="line">        keepalive: <span class="literal">true</span> <span class="comment">// keep the server alive. so the grunt task won't stop</span></span><br><span class="line">      &#125;,</span><br><span class="line">      all: &#123;</span><br><span class="line">        options: &#123;</span><br><span class="line">          open: <span class="literal">true</span>,</span><br><span class="line">          base: [</span><br><span class="line">            <span class="string">'examples'</span> <span class="comment">// This is the base file folder. we suppose our index.html is located in this folder</span></span><br><span class="line">                       <span class="comment">// replace with the directory you want the files served from</span></span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Creates the 'serve' task</span></span><br><span class="line">  grunt.registerTask(<span class="string">'serve'</span>, [</span><br><span class="line">    <span class="string">'connect:all'</span></span><br><span class="line">  ]);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>我们用grunt-contrib-connect创建了一个静态服务器，并且能自动打开浏览器。我们把配置好的任务加入到自己创建的serve任务里，别在意这里只有一个子任务，我们接下来会加入其他任务到这个serve任务里。现在你可以在命令行里运行 <code>grunt serve</code> （从Gruntfile所在的目录）。grunt会自动打开浏览器并访问 <a href="http://localhost:9000" target="_blank" rel="external">http://localhost:9000</a> 并保持服务器一直运行下去（任务不会结束）。</p>
+<h3 id="Watch和livereload">Watch和livereload</h3><p>虽然我们已经配置好了一个静态文件服务器。但是 <strong>grunt-contrib-connect</strong> 并不会帮助我们监视文件变化并自动加载，我们需要 <strong>grunt-contrib-watch</strong> 来完成这项工作，并触发 <strong>grunt-contrib-connect</strong> 里面的livereload功能。所以我们要修改一下Gruntfile</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span><span class="params">(grunt)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Load all grunt tasks automatically</span></span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'load-grunt-tasks'</span>)(grunt);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Time how long grunt task take. Can help when optimizing build times</span></span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'time-grunt'</span>)(grunt);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Configure grunt</span></span><br><span class="line">  grunt.initConfig(&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// The actual grunt server settings</span></span><br><span class="line">    connect: &#123;</span><br><span class="line">      options: &#123;</span><br><span class="line">        port: <span class="number">9000</span>,</span><br><span class="line">        <span class="comment">// Change this to '0.0.0.0' to access the server from outside.</span></span><br><span class="line">        hostname: <span class="string">'localhost'</span>,</span><br><span class="line">        livereload: <span class="number">35729</span> <span class="comment">// This does not perform live reloading. this port is used by watch task to trigger a live reloading action.</span></span><br><span class="line">      &#125;,</span><br><span class="line">      all: &#123;</span><br><span class="line">        options: &#123;</span><br><span class="line">          open: <span class="literal">true</span>,</span><br><span class="line">          base: [</span><br><span class="line">            <span class="string">'examples'</span></span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//Watch files for changes, and run tasks base on the changed files.</span></span><br><span class="line">    watch: &#123;</span><br><span class="line"></span><br><span class="line">      livereload: &#123;</span><br><span class="line">        options: &#123;</span><br><span class="line">          livereload: <span class="string">'&lt;%= connect.options.livereload %&gt;'</span> <span class="comment">// this port must be same with the connect livereload port</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// Watch whatever files you needed.</span></span><br><span class="line">        files: [</span><br><span class="line">          <span class="string">'examples/*.html'</span>,</span><br><span class="line">          <span class="string">'examples/styles/&#123;,*/&#125;*.css'</span>,</span><br><span class="line">          <span class="string">'examples/scripts/(,*/&#125;*.js'</span>,</span><br><span class="line">          <span class="string">'examples/images/&#123;,*/&#125;*.&#123;png,jpg,jpeg,gif,webp,svg&#125;'</span></span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Creates the 'serve' task</span></span><br><span class="line">  grunt.registerTask(<span class="string">'serve'</span>, [</span><br><span class="line">    <span class="string">'connect:all'</span>,</span><br><span class="line">    <span class="string">'watch'</span></span><br><span class="line">  ]);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>我们新修改的配置把connect任务的keepalive选项去掉了，换成livereload。因为watch会帮我们让grunt task挂起而不停止，所以不再需要keepalive。这里我们将livereload的端口号设置为35729。你也可以设置成其他的端口，不过必须要在watch的livereload选项里设置成相同的端口。
+新加入了一个watch任务，这里我们配置了livereload的端口。配置了需要监视的文件。当这些文件发生改变时，watch任务就会触发livereload。让浏览器刷新页面。最后，我们把这两个任务按照先后顺序组合成serve任务，注意watch必须在后面，因为watch之后的任务永远不会被执行，同时我们也需要watch帮我们保持服务器一直运行。</p>
+<p>接下来运行 <code>grunt serve</code> 就可以看到一个跟刚才一样的页面在浏览器窗口中打开了。不同的是，这次你修改任何监视范围内的文件，都会实时的反映在浏览器上，可以说做到的了实时预览。当你需要结束服务器的时候，使用Ctrl+C。
+watch并不止能做这些，它还可以让less自动编译，自动运行jshint检查js文件的语法。connect还可以和grunt-connect-proxy结合来制作本地代理访问其他域名的api而不用处理跨域问题。当你觉得某种开发方式不够酷的时候，想想grunt吧。如果你没有找到合适的插件，就自己编写一个。Have a good day!</p>
+
+      
+    </div>
+  </div>
+  <div class="article-additional">
+    <div class="social-buttons">
+      <a data-url="http://nya.io/Node-js/grunt-livereload-for-realtime-preview/" data-id="cj1emw8bx0010a9ls87bbetu9" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+      </a>
+    </div>
+    
+<a href="http://nya.io/Node-js/grunt-livereload-for-realtime-preview/#disqus_thread" class="comment-count mobile-meta">
+  Comments
+</a>
+
+    
+  <ul class="tag-list nav-menu mobile-meta">
+    
+      <li>
+        <a href="/tags/Gruntjs/">#Gruntjs</a>
+      </li>
+    
+      <li>
+        <a href="/tags/Node-js/">#Node.js</a>
+      </li>
+    
+  </ul>
+
+  </div>
+  <div class="article-meta">
+    <a href="/Node-js/grunt-livereload-for-realtime-preview/" class="post-date">
+  <time datetime="2014-02-06T05:40:42.000Z">2月 06 2014</time>
+</a>
+    
+<a href="http://nya.io/Node-js/grunt-livereload-for-realtime-preview/#disqus_thread" class="comment-count">
+  Comments
+</a>
+
+    
+  <ul class="tag-list">
+    
+      <li>
+        <a href="/tags/Gruntjs/">#Gruntjs</a>
+      </li>
+    
+      <li>
+        <a href="/tags/Node-js/">#Node.js</a>
+      </li>
+    
+  </ul>
+
+  </div>
+</article>
+
+
+
+  <article class="article-container">
   <a href="/miscellaneous/hello-nyaio/" class="post-date mobile-meta">
   <time datetime="2013-12-28T13:20:11.000Z">12月 28 2013</time>
 </a>
@@ -123,7 +218,7 @@
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/miscellaneous/hello-nyaio/" data-id="ci9fftqha000osilsz74w49g3" class="article-share-link">
+      <a data-url="http://nya.io/miscellaneous/hello-nyaio/" data-id="cj1emw8bw000xa9lsgd0lqbal" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
