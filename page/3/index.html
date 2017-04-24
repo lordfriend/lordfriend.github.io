@@ -97,6 +97,78 @@
   <section class="article-list">
 
   <article class="article-container">
+  <a href="/uncategorized/Remove-Verbose-Log-In-Production/" class="post-date mobile-meta">
+  <time datetime="2014-10-25T07:45:12.000Z">10月 25 2014</time>
+</a>
+  <div class="article-content">
+    <header class="article-header">
+      
+        
+
+<h1>
+  <a href="/uncategorized/Remove-Verbose-Log-In-Production/">Remove Verbose Log In Production</a>
+</h1>
+
+
+      
+    </header>
+    <div class="article-entry">
+      
+        <p><code>android.util.Log</code> is a very useful class to help developer debug their application. But when in production release. Any verbose log (<code>Log.v</code>) should be removed properly to prevent annoying user or leak some information.</p>
+<p>You can simply commented those Log.v out or Using a ProGuard to remove any verbose log statements directly from the bytecode of your compiled JAR executable. This method is described in Christopher’s answer in the <a href="http://stackoverflow.com/a/2019563/1696590" target="_blank" rel="external">StackOverflow post</a></p>
+<p>The easiest way is to run your compiled JAR through ProGuard before deployment, with a config like:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-assumenosideeffects <span class="class"><span class="keyword">class</span> <span class="title">android</span>.<span class="title">util</span>.<span class="title">Log</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">v</span><span class="params">(...)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>That will — aside from all the other ProGuard optimisations — remove any verbose log statements directly from the bytecode.</p>
+
+      
+    </div>
+  </div>
+  <div class="article-additional">
+    <div class="social-buttons">
+      <a data-url="http://nya.io/uncategorized/Remove-Verbose-Log-In-Production/" data-id="cj1vz8852001eeolskhwyh5xn" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+      </a>
+    </div>
+    
+<a href="http://nya.io/uncategorized/Remove-Verbose-Log-In-Production/#disqus_thread" class="comment-count mobile-meta">
+  Comments
+</a>
+
+    
+  <ul class="tag-list nav-menu mobile-meta">
+    
+      <li>
+        <a href="/tags/Android/">#Android</a>
+      </li>
+    
+  </ul>
+
+  </div>
+  <div class="article-meta">
+    <a href="/uncategorized/Remove-Verbose-Log-In-Production/" class="post-date">
+  <time datetime="2014-10-25T07:45:12.000Z">10月 25 2014</time>
+</a>
+    
+<a href="http://nya.io/uncategorized/Remove-Verbose-Log-In-Production/#disqus_thread" class="comment-count">
+  Comments
+</a>
+
+    
+  <ul class="tag-list">
+    
+      <li>
+        <a href="/tags/Android/">#Android</a>
+      </li>
+    
+  </ul>
+
+  </div>
+</article>
+
+
+
+  <article class="article-container">
   <a href="/uncategorized/monokai-webstorm-for-brackets/" class="post-date mobile-meta">
   <time datetime="2014-05-28T17:12:00.000Z">5月 29 2014</time>
 </a>
@@ -145,7 +217,7 @@
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/monokai-webstorm-for-brackets/" data-id="cj1hnhkyk000h8jlsbfmltejo" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/monokai-webstorm-for-brackets/" data-id="cj1vz884b000heols8rs8333m" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -231,7 +303,7 @@
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/AngularJS/nya-bootstrap-select-may-need-a-rewrite/" data-id="cj1hnhkyi000c8jls6gz28zl3" class="article-share-link">
+      <a data-url="http://nya.io/AngularJS/nya-bootstrap-select-may-need-a-rewrite/" data-id="cj1vz8848000ceolsx1d6nb3u" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -338,7 +410,7 @@ Promise的出现解决了这两个需求，又保持了javascript异步的优势
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/Node-js/promise-in-nodejs-get-rid-of-callback-hell/" data-id="cj1hnhkya00038jlsukltee5g" class="article-share-link">
+      <a data-url="http://nya.io/Node-js/promise-in-nodejs-get-rid-of-callback-hell/" data-id="cj1vz88400003eolsrmudkmi2" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -436,7 +508,7 @@ Promise的出现解决了这两个需求，又保持了javascript异步的优势
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/getting-started-with-nya-bootstrap-select/" data-id="cj1hnhkz200158jlsry941qzf" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/getting-started-with-nya-bootstrap-select/" data-id="cj1vz884l0015eolss1rbv5av" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -470,88 +542,6 @@ Promise的出现解决了这两个需求，又保持了javascript异步的优势
     
       <li>
         <a href="/tags/AngularJS/">#AngularJS</a>
-      </li>
-    
-  </ul>
-
-  </div>
-</article>
-
-
-
-  <article class="article-container">
-  <a href="/AngularJS/angular-jquery-load-order/" class="post-date mobile-meta">
-  <time datetime="2014-02-08T13:50:03.000Z">2月 08 2014</time>
-</a>
-  <div class="article-content">
-    <header class="article-header">
-      
-        
-
-<h1>
-  <a href="/AngularJS/angular-jquery-load-order/">Angular 与 jQuery 加载顺序的问题</a>
-</h1>
-
-
-      
-    </header>
-    <div class="article-entry">
-      
-        <p>最近打算把一个自己写的angular directive开源，于是花了点时间写demo，但是在demo里曾经没有什么问题的插件不能正常的工作，令人匪夷所思。
-发现问题之后，困扰了一段时间，把所有能怀疑的对象都检查了一遍，依然没发现问题，最后在无意间对比过去使用这个directive的项目代码和demo代码发现二者的angular.js与jquery.js加载顺序不同，于是调换了一下顺序，果然问题就解决了。瞬间有种要掀桌的感觉(╯°Д°)╯︵ ┻━┻。
-不过这个问题是为什么呢，百思不得其解，在Google了一番之后，在Google Group上找到了类似的<a href="https://groups.google.com/forum/#!topic/angular/6A3Skwm59Z4" target="_blank" rel="external">问题</a>。在原po的提示下，通过研究angular源码发现，原来angular会在加载到内存之后，查找 <code>window.jQuery</code> 如果存在，就对其进行扩展，并将jQLite绑定到jQuery上，以后创建出来的jQLite对象实际上也是jQuery对象。如果没找到，就使用angular自带的jQLite。以下是部分代码片段
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bindJQuery</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// bind to jQuery if present;</span></span><br><span class="line">  jQuery = <span class="built_in">window</span>.jQuery;</span><br><span class="line">  <span class="comment">// reset to jQuery or default to us.</span></span><br><span class="line">  <span class="keyword">if</span> (jQuery) &#123;</span><br><span class="line">    jqLite = jQuery;</span><br><span class="line">    extend(jQuery.fn, &#123;</span><br><span class="line">      scope: JQLitePrototype.scope,</span><br><span class="line">      isolateScope: JQLitePrototype.isolateScope,</span><br><span class="line">      controller: JQLitePrototype.controller,</span><br><span class="line">      injector: JQLitePrototype.injector,</span><br><span class="line">      inheritedData: JQLitePrototype.inheritedData</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// Method signature:</span></span><br><span class="line">    <span class="comment">//     jqLitePatchJQueryRemove(name, dispatchThis, filterElems, getterIfNoArguments)</span></span><br><span class="line">    jqLitePatchJQueryRemove(<span class="string">'remove'</span>, <span class="literal">true</span>, <span class="literal">true</span>, <span class="literal">false</span>);</span><br><span class="line">    jqLitePatchJQueryRemove(<span class="string">'empty'</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>);</span><br><span class="line">    jqLitePatchJQueryRemove(<span class="string">'html'</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">true</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    jqLite = JQLite;</span><br><span class="line">  &#125;</span><br><span class="line">  angular.element = jqLite;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Angular在加载到内存之后便会执行这段代码。以后所有的angular.element()创建或包装的对象都是jqLite对象。如果弄错了加载顺序，那么使用$()创建出来的对象与angular的jqLite对象便存在兼容性问题，导致一些奇怪的现象。</p>
-<h3 id="正确的做法">正确的做法</h3><p>如果你要在项目中同时使用jQuery与AngularJS那么，一定要让jQuery在angularjs之前加载。比如下面这样写才能保证程序不出现奇怪的问题：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"bower_components/jquery/jquery.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"bower_components/angular/angular.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-  </div>
-  <div class="article-additional">
-    <div class="social-buttons">
-      <a data-url="http://nya.io/AngularJS/angular-jquery-load-order/" data-id="cj1hnhkz500178jls2dhdusbr" class="article-share-link">
-        <i class="fa fa-share"></i>
-        Share
-      </a>
-    </div>
-    
-<a href="http://nya.io/AngularJS/angular-jquery-load-order/#disqus_thread" class="comment-count mobile-meta">
-  Comments
-</a>
-
-    
-  <ul class="tag-list nav-menu mobile-meta">
-    
-      <li>
-        <a href="/tags/AngularJS/">#AngularJS</a>
-      </li>
-    
-      <li>
-        <a href="/tags/jQuery/">#jQuery</a>
-      </li>
-    
-  </ul>
-
-  </div>
-  <div class="article-meta">
-    <a href="/AngularJS/angular-jquery-load-order/" class="post-date">
-  <time datetime="2014-02-08T13:50:03.000Z">2月 08 2014</time>
-</a>
-    
-<a href="http://nya.io/AngularJS/angular-jquery-load-order/#disqus_thread" class="comment-count">
-  Comments
-</a>
-
-    
-  <ul class="tag-list">
-    
-      <li>
-        <a href="/tags/AngularJS/">#AngularJS</a>
-      </li>
-    
-      <li>
-        <a href="/tags/jQuery/">#jQuery</a>
       </li>
     
   </ul>

@@ -97,6 +97,58 @@
   <section class="article-list">
 
   <article class="article-container">
+  <a href="/uncategorized/Add-About-Page/" class="post-date mobile-meta">
+  <time datetime="2015-03-31T13:41:48.000Z">3月 31 2015</time>
+</a>
+  <div class="article-content">
+    <header class="article-header">
+      
+        
+
+<h1>
+  <a href="/uncategorized/Add-About-Page/">Add About Page</a>
+</h1>
+
+
+      
+    </header>
+    <div class="article-entry">
+      
+        <p>Finally, this new blog theme has completed. A new about page is available, you can see the description and authors from about page.</p>
+
+      
+    </div>
+  </div>
+  <div class="article-additional">
+    <div class="social-buttons">
+      <a data-url="http://nya.io/uncategorized/Add-About-Page/" data-id="cj1vz885j001zeols5qsn6kc6" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+      </a>
+    </div>
+    
+<a href="http://nya.io/uncategorized/Add-About-Page/#disqus_thread" class="comment-count mobile-meta">
+  Comments
+</a>
+
+    
+  </div>
+  <div class="article-meta">
+    <a href="/uncategorized/Add-About-Page/" class="post-date">
+  <time datetime="2015-03-31T13:41:48.000Z">3月 31 2015</time>
+</a>
+    
+<a href="http://nya.io/uncategorized/Add-About-Page/#disqus_thread" class="comment-count">
+  Comments
+</a>
+
+    
+  </div>
+</article>
+
+
+
+  <article class="article-container">
   <a href="/uncategorized/Fix-Theme-bug-in-Safari/" class="post-date mobile-meta">
   <time datetime="2015-03-31T02:44:23.000Z">3月 31 2015</time>
 </a>
@@ -123,7 +175,7 @@ on iOS disappeared. For convenience, I using a grunt task <code>grunt-autoprefix
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/Fix-Theme-bug-in-Safari/" data-id="cj1hnhkzh001o8jls5g881oc8" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/Fix-Theme-bug-in-Safari/" data-id="cj1vz8858001oeolse4lpkx6l" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -191,7 +243,7 @@ on iOS disappeared. For convenience, I using a grunt task <code>grunt-autoprefix
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/Add-archives-layout/" data-id="cj1hnhkzl001x8jlsp2o5rx6p" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/Add-archives-layout/" data-id="cj1vz885g001yeolsz989d911" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -270,7 +322,7 @@ At first, I made this very jquery, write some code and debug, this was time wast
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/New-Hexo-Theme/" data-id="cj1hnhkzc001h8jlsjjih07aj" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/New-Hexo-Theme/" data-id="cj1vz8854001heolswr0mhn3b" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -354,7 +406,7 @@ You may not get expected effect. the scrolling content is just cut from the air.
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/Make-Action-Bar-Overlay-work-with-ListView-or-GridView/" data-id="cj1hnhkzg001m8jlswq8kyi10" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/Make-Action-Bar-Overlay-work-with-ListView-or-GridView/" data-id="cj1vz8857001meols25x6glmm" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -380,78 +432,6 @@ You may not get expected effect. the scrolling content is just cut from the air.
 </a>
     
 <a href="http://nya.io/uncategorized/Make-Action-Bar-Overlay-work-with-ListView-or-GridView/#disqus_thread" class="comment-count">
-  Comments
-</a>
-
-    
-  <ul class="tag-list">
-    
-      <li>
-        <a href="/tags/Android/">#Android</a>
-      </li>
-    
-  </ul>
-
-  </div>
-</article>
-
-
-
-  <article class="article-container">
-  <a href="/uncategorized/Remove-Verbose-Log-In-Production/" class="post-date mobile-meta">
-  <time datetime="2014-10-25T07:45:12.000Z">10月 25 2014</time>
-</a>
-  <div class="article-content">
-    <header class="article-header">
-      
-        
-
-<h1>
-  <a href="/uncategorized/Remove-Verbose-Log-In-Production/">Remove Verbose Log In Production</a>
-</h1>
-
-
-      
-    </header>
-    <div class="article-entry">
-      
-        <p><code>android.util.Log</code> is a very useful class to help developer debug their application. But when in production release. Any verbose log (<code>Log.v</code>) should be removed properly to prevent annoying user or leak some information.</p>
-<p>You can simply commented those Log.v out or Using a ProGuard to remove any verbose log statements directly from the bytecode of your compiled JAR executable. This method is described in Christopher’s answer in the <a href="http://stackoverflow.com/a/2019563/1696590" target="_blank" rel="external">StackOverflow post</a></p>
-<p>The easiest way is to run your compiled JAR through ProGuard before deployment, with a config like:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-assumenosideeffects <span class="class"><span class="keyword">class</span> <span class="title">android</span>.<span class="title">util</span>.<span class="title">Log</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">v</span><span class="params">(...)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>That will — aside from all the other ProGuard optimisations — remove any verbose log statements directly from the bytecode.</p>
-
-      
-    </div>
-  </div>
-  <div class="article-additional">
-    <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/Remove-Verbose-Log-In-Production/" data-id="cj1hnhkza001e8jlsfbp52zqx" class="article-share-link">
-        <i class="fa fa-share"></i>
-        Share
-      </a>
-    </div>
-    
-<a href="http://nya.io/uncategorized/Remove-Verbose-Log-In-Production/#disqus_thread" class="comment-count mobile-meta">
-  Comments
-</a>
-
-    
-  <ul class="tag-list nav-menu mobile-meta">
-    
-      <li>
-        <a href="/tags/Android/">#Android</a>
-      </li>
-    
-  </ul>
-
-  </div>
-  <div class="article-meta">
-    <a href="/uncategorized/Remove-Verbose-Log-In-Production/" class="post-date">
-  <time datetime="2014-10-25T07:45:12.000Z">10月 25 2014</time>
-</a>
-    
-<a href="http://nya.io/uncategorized/Remove-Verbose-Log-In-Production/#disqus_thread" class="comment-count">
   Comments
 </a>
 
