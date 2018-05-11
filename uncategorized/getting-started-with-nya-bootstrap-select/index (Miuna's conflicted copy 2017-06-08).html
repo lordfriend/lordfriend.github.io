@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="HandheldFriendly" content="True"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
+  <title>开始使用nya-bootstrap-select | Nyasoft</title>
+  
+    <link rel="alternative" href="/rss2.xml" title="Nyasoft" type="application/atom+xml">
+  
+  <meta name="description" content="好吧，这个post是个广告，如果你是一名web前端开发者，使用AngularJS，bootstrap和jquery。那么我在这里向你推荐我最近发布的一个开源项目：nya-bootstrap-select
+nya-bootstrap-select 是一个对bootstrap-select的包装，让这个功能强大的jquery插件可以用angularjs特有的风格在angularjs程序中使用。
+依赖：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开始使用nya-bootstrap-select">
+<meta property="og:url" content="http://nya.io/uncategorized/getting-started-with-nya-bootstrap-select/index.html">
+<meta property="og:site_name" content="Nyasoft">
+<meta property="og:description" content="好吧，这个post是个广告，如果你是一名web前端开发者，使用AngularJS，bootstrap和jquery。那么我在这里向你推荐我最近发布的一个开源项目：nya-bootstrap-select
+nya-bootstrap-select 是一个对bootstrap-select的包装，让这个功能强大的jquery插件可以用angularjs特有的风格在angularjs程序中使用。
+依赖：">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="开始使用nya-bootstrap-select">
+<meta name="twitter:description" content="好吧，这个post是个广告，如果你是一名web前端开发者，使用AngularJS，bootstrap和jquery。那么我在这里向你推荐我最近发布的一个开源项目：nya-bootstrap-select
+nya-bootstrap-select 是一个对bootstrap-select的包装，让这个功能强大的jquery插件可以用angularjs特有的风格在angularjs程序中使用。
+依赖：">
+  <link rel="stylesheet" href="/css/2bb849c6.styles.css">
+  <link rel="stylesheet" href="/fancybox/source/jquery.fancybox.css" type="text/css">
+  
+</head>
+<body>
+<nav class="navbar">
+  <div class="container-full">
+    <a class="brand" href="/">Nyasoft</a>
+
+    <div class="collapse">
+      <input id="drawer-toggle" type="checkbox" name="drawer-toggle"/>
+      <label for="drawer-toggle" id="drawer-toggle-label">
+        <i class="fa fa-navicon"></i>
+        <span class="action-name">Nyasoft</span>
+      </label>
+      <label for="drawer-toggle" id="backdrop-button"></label>
+      <ul id="drawer-menu" class="nav nav-menu stack">
+        <li class="site-homepage">
+          <a href="/">Nyasoft</a>
+        </li>
+        
+        <li>
+          <a href="/about">About</a>
+        </li>
+        
+        <li>
+          <a href="/archives">Archives</a>
+        </li>
+        
+        <li>
+          <a href="/projects">Projects</a>
+        </li>
+        
+        <li>
+          <a href="/links">Links</a>
+        </li>
+        
+      </ul>
+    </div>
+    <div class="container hori-nav-menu">
+      <ul class="nav nav-menu">
+        
+        <li>
+          <a href="/about">About</a>
+        </li>
+        
+        <li>
+          <a href="/archives">Archives</a>
+        </li>
+        
+        <li>
+          <a href="/projects">Projects</a>
+        </li>
+        
+        <li>
+          <a href="/links">Links</a>
+        </li>
+        
+      </ul>
+    </div>
+    <div class="corner-container">
+      <ul class="nav nav-menu">
+        
+        <li>
+          <a href="/rss2.xml" title="RSS Feed">
+            <i class="fa fa-rss"></i>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <article class="article-container">
+  <a href="/uncategorized/getting-started-with-nya-bootstrap-select/" class="post-date mobile-meta">
+  <time datetime="2014-04-12T13:51:47.000Z">4月 12 2014</time>
+</a>
+  <div class="article-content">
+    <header class="article-header">
+      
+        
+
+<h1>
+  开始使用nya-bootstrap-select
+</h1>
+
+
+      
+    </header>
+    <div class="article-entry">
+      
+        <p>好吧，这个post是个广告，如果你是一名web前端开发者，使用AngularJS，bootstrap和jquery。那么我在这里向你推荐我最近发布的一个开源项目：<a href="http://nya.io/nya-bootstrap-select/" target="_blank" rel="external"><strong>nya-bootstrap-select</strong></a></p>
+<p>nya-bootstrap-select 是一个对<a href="http://silviomoreto.github.io/bootstrap-select/" target="_blank" rel="external">bootstrap-select</a>的包装，让这个功能强大的jquery插件可以用angularjs特有的风格在angularjs程序中使用。</p>
+<p>依赖：
+    AngularJS 1.0+(这个是当然的） bootstrap-select 1.3+  bootstrap css （支持2.x和3.x）</p>
+<p>安装：
+推荐使用<a href="http://bower.io" target="_blank" rel="external">bower</a>来安装，可以帮助你自动处理依赖关系。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">bower</span> install nya-bootstrap-<span class="built_in">select</span></span><br></pre></td></tr></table></figure>
+<p>将src/nya-bootstrap-select.js加入到你的页面里</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"bower_components/nya-bootstrap-select/src/nya-bootstrap-select.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>将 nya.bootstrap.select作为angular app的依赖</p>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">angular.<span class="keyword">module</span>(<span class="symbol">'yourApp'</span>, [<span class="symbol">'nya</span>.bootstrap.select']);</span><br></pre></td></tr></table></figure>
+<p>现在可以开始使用了。本文就只列举一个例子，更多例子请参考文档 <a href="http://nya.io/nya-bootstrap-select/" target="_blank" rel="external">http://nya.io/nya-bootstrap-select/</a></p>
+<p>在select标签里，加入class <code>nya-selectpicker</code> 也可以作为属性加入。 然后将你的scope变量绑定到ng-model上，这样你可以获取到选择的值。
+假设你的$scope.myOptions就是选项的条件
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">select</span> <span class="keyword">class</span>=<span class="string">"nya-selectpicker"</span> data-container=<span class="string">"body"</span> ng-model=<span class="string">"myModel"</span> ng-options=<span class="string">"c.value for c in myOptions"</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;/<span class="keyword">select</span>&gt;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+  </div>
+  <div class="article-additional">
+    <div class="social-buttons">
+      <a data-url="http://nya.io/uncategorized/getting-started-with-nya-bootstrap-select/" data-id="ci9fftqhf000wsils3uqh5kj6" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+      </a>
+    </div>
+    
+    
+  <ul class="tag-list nav-menu mobile-meta">
+    
+      <li>
+        <a href="/tags/AngularJS/">#AngularJS</a>
+      </li>
+    
+  </ul>
+
+  </div>
+  <div class="article-meta">
+    <a href="/uncategorized/getting-started-with-nya-bootstrap-select/" class="post-date">
+  <time datetime="2014-04-12T13:51:47.000Z">4月 12 2014</time>
+</a>
+    
+    
+  <ul class="tag-list">
+    
+      <li>
+        <a href="/tags/AngularJS/">#AngularJS</a>
+      </li>
+    
+  </ul>
+
+  </div>
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+
+      <section class="copyright">
+        Nyasoft © 2015
+      </section>
+
+      <section class="designedby">
+        Theme
+        <a href="#">Timeline</a>
+        Designed By
+        Nyasoft
+      </section>
+
+      <section class="poweredby">
+        Powered By
+        <a href="http://hexo.io/">Hexo</a>
+      </section>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  var disqus_shortname = 'lordfriend';
+  
+  var disqus_url = 'http://nya.io/uncategorized/getting-started-with-nya-bootstrap-select/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script type="text/javascript" src="/js/cf26f8f0.jquery.js"></script>
+<script src="/fancybox/source/jquery.fancybox.js" type="text/javascript"></script>
+<script type="text/javascript" src="/js/33415e49.caption.js"></script>
+</body>

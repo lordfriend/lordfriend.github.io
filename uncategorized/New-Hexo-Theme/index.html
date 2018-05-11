@@ -8,22 +8,22 @@
   
   <title>New Hexo Theme | Nyasoft</title>
   
-    <link rel="alternative" href="/rss2.xml" title="Nyasoft" type="application/atom+xml">
+    <link rel="alternate" href="/rss2.xml" title="Nyasoft">
   
-  <meta name="description" content="For long time, I have to use the default theme landscape, because I always want to make a very magnificence theme which may require far more out of my toolbox and ability.
-Until now, I decide to make">
+  <meta name="description" content="For long time, I have to use the default theme landscape, because I always want to make a very magnificence theme which may require far more out of my toolbox and ability. Until now, I decide to make">
+<meta name="keywords" content="css,hexo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="New Hexo Theme">
 <meta property="og:url" content="http://nya.io/uncategorized/New-Hexo-Theme/index.html">
 <meta property="og:site_name" content="Nyasoft">
-<meta property="og:description" content="For long time, I have to use the default theme landscape, because I always want to make a very magnificence theme which may require far more out of my toolbox and ability.
-Until now, I decide to make">
+<meta property="og:description" content="For long time, I have to use the default theme landscape, because I always want to make a very magnificence theme which may require far more out of my toolbox and ability. Until now, I decide to make">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2015-02-09T00:44:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="New Hexo Theme">
-<meta name="twitter:description" content="For long time, I have to use the default theme landscape, because I always want to make a very magnificence theme which may require far more out of my toolbox and ability.
-Until now, I decide to make">
+<meta name="twitter:description" content="For long time, I have to use the default theme landscape, because I always want to make a very magnificence theme which may require far more out of my toolbox and ability. Until now, I decide to make">
   <link rel="stylesheet" href="/css/2bb849c6.styles.css">
-  <link rel="stylesheet" href="/fancybox/source/jquery.fancybox.css" type="text/css">
+  <link rel="stylesheet" href="/fancybox/source/jquery.fancybox.css">
   
 <!-- Google Analytics -->
 <script type="text/javascript">
@@ -139,16 +139,16 @@ To save time, I made a decision that I would use the technology which I already 
  All of my fonts became very big (almost scaled 3 times bigger) and the content were out of screen on mobile devices.
  Debug this wasted a lot of time until I found I missed a meta tag to declare the <code>viewport</code> and <code>initial-scale</code> factor.</p>
 <p>Then I add this meta tag then everything looks good.
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"viewport"</span> <span class="attribute">content</span>=<span class="value">"width=device-width, initial-scale=1.0"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>To make the navigation bar more accessible on mobile devices. I want to make a drawer navigator which may be very similar to the drawer of Android app.
-At first, I made this very jquery, write some code and debug, this was time waste. Then I found a method called <a href="http://css-tricks.com/the-checkbox-hack/" target="_blank" rel="external">checkbox hack</a>
+At first, I made this very jquery, write some code and debug, this was time waste. Then I found a method called <a href="http://css-tricks.com/the-checkbox-hack/" target="_blank" rel="noopener">checkbox hack</a>
  which is far more easy to create a navigator drawer and with no javascript need! The mystery is you can make a invisible checkbox (whether make it opacity=0 or move it out of screen)
  and then attach one or more labels with it, these labels are clickable and styleable.
- Another key technology is <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/General_sibling_selectors" target="_blank" rel="external">general sibling selectors</a>
+ Another key technology is <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/General_sibling_selectors" target="_blank" rel="noopener">general sibling selectors</a>
  which make it possible to use the :checked pseudo class to define a different styles for the drawer and backdrop element based on the checkbox state.</p>
 <p>it is almost like this:
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"checkbox"</span> <span class="attribute">id</span>=<span class="value">"drawer-toggle"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">label</span> <span class="attribute">for</span>=<span class="value">"drawer-toggle"</span> <span class="attribute">class</span>=<span class="value">"drawer-label"</span>&gt;</span>Drawer Button<span class="tag">&lt;/<span class="title">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"drawer"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">label</span> <span class="attribute">for</span>=<span class="value">"drawer-toggle"</span> <span class="attribute">class</span>=<span class="value">"backdrop"</span>&gt;</span><span class="tag">&lt;/<span class="title">label</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#drawer-toggle &#123;&#10;    opacity: 0;&#10;    position: absolute;&#10;&#125;&#10;&#10;.drawer-label &#123;&#10;    // you can make any styles what you want your drawer toggle button to be.&#10;&#125;&#10;&#10;.drawer &#123;&#10;    transition: transform 0.2s ease-out;&#10;    transform: translate3d(-100px, 0, 0); // we move the drawer out of screen when initialized.&#10;    position: fixed;&#10;    top: 0;&#10;    left: 0;&#10;    width: 100px;&#10;    height: 100%;&#10;&#125;&#10;&#10;.backdrop &#123;&#10;    display: none;&#10;    position: fixed;&#10;    top: 0;&#10;    left: 0;&#10;    width: 100%;&#10;    height: 100%;&#10;&#125;&#10;&#10;// then came the interesting part.&#10;&#10;#drawer-toggle:checked ~ .drawer &#123;&#10;    transform: translate3d(0, 0, 0);&#10;&#125;&#10;&#10;#drawer-toggle:checked ~ .backdrop &#123;&#10;    display:block;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">id</span>=<span class="string">"drawer-toggle"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"drawer-toggle"</span> <span class="attr">class</span>=<span class="string">"drawer-label"</span>&gt;</span>Drawer Button<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"drawer"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"drawer-toggle"</span> <span class="attr">class</span>=<span class="string">"backdrop"</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">#drawer-toggle &#123;</span><br><span class="line">    opacity: 0;</span><br><span class="line">    position: absolute;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.drawer-label &#123;</span><br><span class="line">    // you can make any styles what you want your drawer toggle button to be.</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.drawer &#123;</span><br><span class="line">    transition: transform 0.2s ease-out;</span><br><span class="line">    transform: translate3d(-100px, 0, 0); // we move the drawer out of screen when initialized.</span><br><span class="line">    position: fixed;</span><br><span class="line">    top: 0;</span><br><span class="line">    left: 0;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100%;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.backdrop &#123;</span><br><span class="line">    display: none;</span><br><span class="line">    position: fixed;</span><br><span class="line">    top: 0;</span><br><span class="line">    left: 0;</span><br><span class="line">    width: 100%;</span><br><span class="line">    height: 100%;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// then came the interesting part.</span><br><span class="line"></span><br><span class="line">#drawer-toggle:checked ~ .drawer &#123;</span><br><span class="line">    transform: translate3d(0, 0, 0);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#drawer-toggle:checked ~ .backdrop &#123;</span><br><span class="line">    display:block;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>This technology has very good browser compatibility. even with IE9 but If you want to be compatible with the older browser, You may consider a javascript version. But I don’t care.</p>
 <p>After I almost complete the styles and layout development and began to convert html to ejs template. I finally found a project called hexo-theme-unit-test.
  Which is actually a sample blog with every type of post. What I need is copy may theme into its themes folder. and modify the _config.yml.
@@ -162,7 +162,7 @@ At first, I made this very jquery, write some code and debug, this was time wast
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/New-Hexo-Theme/" data-id="cj1vz8854001heolswr0mhn3b" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/New-Hexo-Theme/" data-id="cjh1hzeus000h78hvqe2awymy" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -217,7 +217,7 @@ At first, I made this very jquery, write some code and debug, this was time wast
     <div class="footer-inner">
 
       <section class="copyright">
-        Nyasoft © 2015
+        Nyasoft © 2015 - 2018
       </section>
 
       <section class="designedby">
@@ -252,6 +252,6 @@ At first, I made this very jquery, write some code and debug, this was time wast
 
 
 <script type="text/javascript" src="/js/cf26f8f0.jquery.js"></script>
-<script src="/fancybox/source/jquery.fancybox.js" type="text/javascript"></script>
+<script src="/fancybox/source/jquery.fancybox.js"></script>
 <script type="text/javascript" src="/js/33415e49.caption.js"></script>
 </body>

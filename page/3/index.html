@@ -8,19 +8,20 @@
   
   <title>Nyasoft</title>
   
-    <link rel="alternative" href="/rss2.xml" title="Nyasoft" type="application/atom+xml">
+    <link rel="alternate" href="/rss2.xml" title="Nyasoft">
   
   <meta name="description" content="Nyasoft is a blog about web and android development technology">
-<meta property="og:type" content="article">
+<meta property="og:type" content="website">
 <meta property="og:title" content="Nyasoft">
 <meta property="og:url" content="http://nya.io/page/3/index.html">
 <meta property="og:site_name" content="Nyasoft">
 <meta property="og:description" content="Nyasoft is a blog about web and android development technology">
+<meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nyasoft">
 <meta name="twitter:description" content="Nyasoft is a blog about web and android development technology">
   <link rel="stylesheet" href="/css/2bb849c6.styles.css">
-  <link rel="stylesheet" href="/fancybox/source/jquery.fancybox.css" type="text/css">
+  <link rel="stylesheet" href="/fancybox/source/jquery.fancybox.css">
   
 <!-- Google Analytics -->
 <script type="text/javascript">
@@ -128,17 +129,17 @@
     <div class="article-entry">
       
         <p><code>android.util.Log</code> is a very useful class to help developer debug their application. But when in production release. Any verbose log (<code>Log.v</code>) should be removed properly to prevent annoying user or leak some information.</p>
-<p>You can simply commented those Log.v out or Using a ProGuard to remove any verbose log statements directly from the bytecode of your compiled JAR executable. This method is described in Christopher’s answer in the <a href="http://stackoverflow.com/a/2019563/1696590" target="_blank" rel="external">StackOverflow post</a></p>
+<p>You can simply commented those Log.v out or Using a ProGuard to remove any verbose log statements directly from the bytecode of your compiled JAR executable. This method is described in Christopher’s answer in the <a href="http://stackoverflow.com/a/2019563/1696590" target="_blank" rel="noopener">StackOverflow post</a></p>
 <p>The easiest way is to run your compiled JAR through ProGuard before deployment, with a config like:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-assumenosideeffects <span class="class"><span class="keyword">class</span> <span class="title">android</span>.<span class="title">util</span>.<span class="title">Log</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">v</span><span class="params">(...)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>That will — aside from all the other ProGuard optimisations — remove any verbose log statements directly from the bytecode.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-assumenosideeffects class android.util.Log &#123;</span><br><span class="line">    public static int v(...);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>That will – aside from all the other ProGuard optimisations – remove any verbose log statements directly from the bytecode.</p>
 
       
     </div>
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/Remove-Verbose-Log-In-Production/" data-id="cj1vz8852001eeolskhwyh5xn" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/Remove-Verbose-Log-In-Production/" data-id="cjh1hzeut000i78hvnn2q0dwg" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -208,19 +209,23 @@
 <li>和默认的monokai-dark-soda相比，对比度降低了一些，不那么刺眼了，虽然还是优点略亮。</li>
 <li>此外还解决了mac下字体显示的问题</li>
 </ul>
-<h3 id="效果预览：">效果预览：</h3><p><strong>JS代码效果：</strong></p>
+<p>###效果预览：####</p>
+<p><strong>JS代码效果：</strong></p>
 <p><img src="/img/monokai-webstorm-js.png" alt="JS代码效果"></p>
 <p><strong>HTML代码效果：</strong></p>
 <p><img src="/img/monokai-webstorm-html.png" alt="HTML代码效果"></p>
 <p><strong>CSS代码效果：</strong></p>
 <p><img src="/img/monokai-webstorm-css.png" alt="CSS代码效果"></p>
-<h3 id="下载地址：">下载地址：</h3><p><a href="https://gist.github.com/lordfriend/858e369f8e9f7cd9861c" target="_blank" rel="external">https://gist.github.com/lordfriend/858e369f8e9f7cd9861c</a></p>
+<p>###下载地址：###
+<a href="https://gist.github.com/lordfriend/858e369f8e9f7cd9861c" target="_blank" rel="noopener">https://gist.github.com/lordfriend/858e369f8e9f7cd9861c</a></p>
 <p><strong>欢迎试用与反馈bug</strong></p>
-<h3 id="使用方法：">使用方法：</h3><ul>
-<li>安装Brackets的Themes扩展：<a href="https://github.com/MiguelCastillo/Brackets-Themes" target="_blank" rel="external">https://github.com/MiguelCastillo/Brackets-Themes</a></li>
+<p>###使用方法：###</p>
+<ul>
+<li>安装Brackets的Themes扩展：<a href="https://github.com/MiguelCastillo/Brackets-Themes" target="_blank" rel="noopener">https://github.com/MiguelCastillo/Brackets-Themes</a></li>
 <li>然后打开扩展的文件夹（Help菜单-&gt;show Extensions Folder)，进入user/themes/theme，然后将下载的monokai-webstorm.css放到里面，重启Brackets，在Themes菜单里选择monokai-webstorm主题即可。</li>
 </ul>
-<h3 id="如何修复mac下字体显示问题">如何修复mac下字体显示问题</h3><p>mac下字体显示问题是因为brackets自己加了一个 <code>-webkit-font-smoothing: antialiased</code> 属性导致的。
+<p>###如何修复mac下字体显示问题###</p>
+<p>mac下字体显示问题是因为brackets自己加了一个 <code>-webkit-font-smoothing: antialiased</code> 属性导致的。
 这个属性本来是为了让windows下字体显示更平滑，不过 <code>antialiased</code> 这个值在mac下却导致了字体显示变成点阵一样的效果。
 解决办法就是使用 <code>subpixel-antialiased</code> 值来代替默认值。</p>
 <p>如果你要定义自己的主题。那么在 <code>.CodeMirror</code>里加上这样一句就可以了：</p>
@@ -230,7 +235,7 @@
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/monokai-webstorm-for-brackets/" data-id="cj1vz884b000heols8rs8333m" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/monokai-webstorm-for-brackets/" data-id="cjh1hzev2001078hvgjaosm9w" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -316,7 +321,7 @@
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/AngularJS/nya-bootstrap-select-may-need-a-rewrite/" data-id="cj1vz8848000ceolsx1d6nb3u" class="article-share-link">
+      <a data-url="http://nya.io/AngularJS/nya-bootstrap-select-may-need-a-rewrite/" data-id="cjh1hzev3001378hvsve8tkhu" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -378,12 +383,13 @@
     <div class="article-entry">
       
         <p>在开始谈论正题之前，我们先来看看下面一段代码：
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">step1(<span class="function"><span class="keyword">function</span> <span class="params">(value1)</span> </span>&#123;</span><br><span class="line">    step2(value1, <span class="function"><span class="keyword">function</span><span class="params">(value2)</span> </span>&#123;</span><br><span class="line">        step3(value2, <span class="function"><span class="keyword">function</span><span class="params">(value3)</span> </span>&#123;</span><br><span class="line">            step4(value3, <span class="function"><span class="keyword">function</span><span class="params">(value4)</span> </span>&#123;</span><br><span class="line">                <span class="comment">// Do something with value4</span></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">step1(<span class="function"><span class="keyword">function</span> (<span class="params">value1</span>) </span>&#123;</span><br><span class="line">    step2(value1, <span class="function"><span class="keyword">function</span>(<span class="params">value2</span>) </span>&#123;</span><br><span class="line">        step3(value2, <span class="function"><span class="keyword">function</span>(<span class="params">value3</span>) </span>&#123;</span><br><span class="line">            step4(value3, <span class="function"><span class="keyword">function</span>(<span class="params">value4</span>) </span>&#123;</span><br><span class="line">                <span class="comment">// Do something with value4</span></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>是不是感觉很恐怖，随着嵌套的回调函数增加，结尾会有大量的花括号和圆括号 }); 出现。</p>
-<h3 id="Promise">Promise</h3><p>在javascript中实现异步最简单的方式是Callback。遗憾的是，这种编程方式牺牲了控制流，同时你也不能throw new Error()并在外部捕获异常。
+<p>###Promise###
+在javascript中实现异步最简单的方式是Callback。遗憾的是，这种编程方式牺牲了控制流，同时你也不能throw new Error()并在外部捕获异常。
 Promise的出现解决了这两个需求，又保持了javascript异步的优势，不同于Fiber这种多线程的实现方式，Promise只是一种编程方式的变化。而无须在底层改变。</p>
-<p>CommonJS的规范提到了多种Promise，我们只介绍其中一种的实现q (<a href="https://github.com/kriskowal/q" target="_blank" rel="external">https://github.com/kriskowal/q</a>)</p>
-<p>我们在这里不讲解抽象的Promise规范，这多半是实现者应该关心的，我们直接从示例入手，如果你有兴趣，可以参见<a href="http://promises-aplus.github.io/promises-spec/" target="_blank" rel="external">Promise/A+</a>。</p>
+<p>CommonJS的规范提到了多种Promise，我们只介绍其中一种的实现q (<a href="https://github.com/kriskowal/q" target="_blank" rel="noopener">https://github.com/kriskowal/q</a>)</p>
+<p>我们在这里不讲解抽象的Promise规范，这多半是实现者应该关心的，我们直接从示例入手，如果你有兴趣，可以参见<a href="http://promises-aplus.github.io/promises-spec/" target="_blank" rel="noopener">Promise/A+</a>。</p>
 <p>q的核心是一个promise对象的then方法，他接受两个回调方法，一个promise被定义之后有3种状态，pending（过渡状态），fullfilled（完成状态），rejected(错误状态)。一个promise只能是这三种状态种的一种，而无法是他们的混合状态。</p>
 <ul>
 <li>pending状态可以理解为promise还没有获得确定值，就相当于一个任务还没有完成。</li>
@@ -392,38 +398,41 @@ Promise的出现解决了这两个需求，又保持了javascript异步的优势
 </ul>
 <p>了解了核心思想后，我们来看一个例子，在这个例子中我们先读取一个json文本文件，然后将其解析成javascript对象，最后这个对象进行修改再保存回去。
 按照传统的callback写法，有如下代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">fs.readFile(<span class="string">'example.json'</span>, <span class="function"><span class="keyword">function</span><span class="params">(err, data)</span></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err):</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">var</span> obj = <span class="built_in">JSON</span>.parse(data);</span><br><span class="line">      obj.prop = <span class="string">'something new'</span>;</span><br><span class="line">      fs.writeFile(<span class="string">'example.json'</span>, <span class="built_in">JSON</span>.stringify(obj), <span class="function"><span class="keyword">function</span><span class="params">(error)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(err) &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(error);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">'success'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(e);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">fs.readFile(<span class="string">'example.json'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">err, data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err):</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">var</span> obj = <span class="built_in">JSON</span>.parse(data);</span><br><span class="line">      obj.prop = <span class="string">'something new'</span>;</span><br><span class="line">      fs.writeFile(<span class="string">'example.json'</span>, <span class="built_in">JSON</span>.stringify(obj), <span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(err) &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(error);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">'success'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(e);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>在这个例子中，控制流被切割成多个部分（每次异步都要处理一次错误），并且 <strong>JSON.parse</strong> 的错误必须在内部捕获，但却不能跑到外部。因为在异步回调中无法抛出异常。
 现在当我们使用promise的时候，假设我们有个能够返回一个 <em>promise</em> 对象的 <strong>readFile</strong> 和 <strong>writeFile</strong> 方法。那么上面的代码就可以变成如下形式：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> promise = readFile();</span><br><span class="line">promise</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span><span class="params">(data)</span></span>&#123;</span><br><span class="line">  <span class="comment">// we don't need to catch error. in other words. we can throw error in this callback.</span></span><br><span class="line">  <span class="keyword">var</span> obj = <span class="built_in">JSON</span>.parse(data);</span><br><span class="line">  obj.prop = <span class="string">'something new'</span>;</span><br><span class="line">  <span class="comment">// return a promise. so we can chain the then() method.</span></span><br><span class="line">  <span class="keyword">return</span> writeFile(<span class="built_in">JSON</span>.stringify(obj));</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'success'</span>);</span><br><span class="line">  &#125;, <span class="function"><span class="keyword">function</span><span class="params">(err)</span></span>&#123;</span><br><span class="line">    <span class="comment">// all error will fall down here.</span></span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> promise = readFile();</span><br><span class="line">promise</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="comment">// we don't need to catch error. in other words. we can throw error in this callback.</span></span><br><span class="line">  <span class="keyword">var</span> obj = <span class="built_in">JSON</span>.parse(data);</span><br><span class="line">  obj.prop = <span class="string">'something new'</span>;</span><br><span class="line">  <span class="comment">// return a promise. so we can chain the then() method.</span></span><br><span class="line">  <span class="keyword">return</span> writeFile(<span class="built_in">JSON</span>.stringify(obj));</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'success'</span>);</span><br><span class="line">  &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// all error will fall down here.</span></span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
 <p>上面的例子中，我们首先从 <strong>readFile()</strong> 方法里获得了一个返回的 <em>promise</em> 对象，然后使用这个对象的 <strong>then()</strong> 方法。在这里，我们只传入了一个 <strong>onFullfilled</strong> 回调方法，根据Promise/A+的文档。<strong>then()</strong> 一定会返回一个 <em>promise</em> 对象，所以我们又连接了一个 <strong>then()</strong> ，由于这个 <strong>then()</strong> 是最后一个，所以我们需要在这里提供一个 <strong>onRejected()</strong> 回调方法来处理所有的错误。在第一个 <strong>onFullfilled()</strong> 回调方法中，我们返回了一个 <em>promise</em> ，这个 <em>promise</em> 的处理结果将会在下一个 <strong>then()</strong> 的 <strong>onFullfilled()</strong> 方法中取得。</p>
 <p>这段代码执行的时候，当任意位置抛出异常的时候，最后一个then的 <strong>onRejected</strong> 回调会被执行。否则一切按照从上至下的顺序执行，整个控制流都十分简洁明了。</p>
 <p>因为 <strong>then()</strong> 方法必须返回一个promise，实际上我们也可以结合同步方法返回一个已经fullfilled的promise
 比如下面这个例子
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> promise = readFile();</span><br><span class="line">promise</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span><span class="params">(data)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">JSON</span>.parse(data);</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span><span class="params">(obj)</span></span>&#123;</span><br><span class="line">    obj.prop = <span class="string">'something new'</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(obj);</span><br><span class="line">  &#125;,<span class="function"><span class="keyword">function</span><span class="params">(err)</span></span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> promise = readFile();</span><br><span class="line">promise</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">JSON</span>.parse(data);</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    obj.prop = <span class="string">'something new'</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(obj);</span><br><span class="line">  &#125;,<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure></p>
 <p>上面例子中第二个then会在第一个then返回之后被执行，因为第一个then返回的时候，由于JSON.parse是同步方法，所以返回了一个值，这个值会被包装成一个fullfilled的promise.</p>
-<h3 id="制作promise的API">制作promise的API</h3><p>上面例子中我们知道了如何使用promise提供的核心方法 <strong>then()</strong> 。但是对于平时使用的fs等异步的库我们要怎么才能利用promise呢。
+<p>###制作promise的API###</p>
+<p>上面例子中我们知道了如何使用promise提供的核心方法 <strong>then()</strong> 。但是对于平时使用的fs等异步的库我们要怎么才能利用promise呢。
 在q的文档中介绍了q-io库，里面将常用的io方法都用promise的模式包装了一遍，在实际使用中，你可以使用那个库的方法。不过我们在这里简单的对fs进行包装，让其支持promise，这样以后遇到任何异步方法，你都可以将其转化。</p>
 <p>首先定义改一个readFile方法，返回promise，这里利用了 <strong>Q</strong> 的 <strong>defer()</strong> 方法，创建一个 <em>deferred</em> 对象。这个对象有连个关键的方法 <strong>resolve</strong> 和 <strong>reject()</strong> 。当resolve(value)执行之后，promise变成fullfilled状态，fullfilled的值就是value
 当 <strong>reject(reason)</strong> 执行之后，promise变成了rejected状态，reason会被传递到onRejected()方法。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Q = <span class="built_in">require</span>(<span class="string">'q'</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">readFile</span><span class="params">(callback)</span></span>&#123;</span><br><span class="line">  <span class="keyword">var</span> deferred = Q.defer();</span><br><span class="line">  fs.readFile(<span class="string">'example.json'</span>, <span class="function"><span class="keyword">function</span><span class="params">(err, data)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)&#123;</span><br><span class="line">      deferred.reject(err);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      deferred.resolve(data);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> deferred.promise.nodeify(callback);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Q = <span class="built_in">require</span>(<span class="string">'q'</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">readFile</span>(<span class="params">callback</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> deferred = Q.defer();</span><br><span class="line">  fs.readFile(<span class="string">'example.json'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">err, data</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)&#123;</span><br><span class="line">      deferred.reject(err);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      deferred.resolve(data);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> deferred.promise.nodeify(callback);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>注意到这里面我们依然提供了一个callback，用于提供一些需要callback的场合的兼容性，我们利用 <em>promise</em> 对象的nodeify方法来调用这个callback，这个callback可以为undefined。</p>
 <p>另外一点需要注意的是，一个promise状态改变之后，不能再次改变，所以，你只能调用一次reject或resolve。</p>
 <p>有了这个API，我们便可以像前面例子里那样，使用promise来执行读取文件的操作了。其他异步回调转化成返回promise的异步方法基本上都可以参照这个模式来做。</p>
-<h3 id="一次处理多个promise的">一次处理多个promise的</h3><p>如果你有几个异步方法，他们都返回promise，并且当这些方法都处理完之后，你才能进行下一步，Q提供了一个all()方法来帮助你消化多个promise。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Q.all([</span><br><span class="line">  readFile(<span class="string">'file1.json'</span>),</span><br><span class="line">  readFile(<span class="string">'file2.json'</span>)</span><br><span class="line">  ])</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span><span class="params">(dataArray)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; dataArray.length; i++)&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(dataArray[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, <span class="function"><span class="keyword">function</span><span class="params">(err)</span></span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<p>###一次处理多个promise的###</p>
+<p>如果你有几个异步方法，他们都返回promise，并且当这些方法都处理完之后，你才能进行下一步，Q提供了一个all()方法来帮助你消化多个promise。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Q.all([</span><br><span class="line">  readFile(<span class="string">'file1.json'</span>),</span><br><span class="line">  readFile(<span class="string">'file2.json'</span>)</span><br><span class="line">  ])</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span>(<span class="params">dataArray</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; dataArray.length; i++)&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(dataArray[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
 <p>在这里例子里，我们将一个promise数组传给 <strong>all()</strong> all返回一个promise，当数组里面的所有promise都为fullfilled状态时，我们的then()方法才会被调用。这时fullfilled值是一个数组，每个元素对应前面promise的fullfilled值。
 当任意一个promise变成rejected状态的时候，all的promise会立即reject而不等其他的完成。</p>
-<h3 id="利用promise改写你的项目">利用promise改写你的项目</h3><p>最佳的理解方法便是事件，你可以把一些nodejs的基本异步方法包装成promise，这样你就可以在整个程序的多个地方使用这些方法。并且让你的程序的异步代码看起来更整洁，更容易理解。
-阅读 <a href="http://documentup.com/kriskowal/q/" target="_blank" rel="external">Q的文档</a> 了解更多的API和方法。并在程序中使用这些方法，使你的代码更优美，逻辑更健壮。
-阅读 <a href="http://promises-aplus.github.io/promises-spec/" target="_blank" rel="external">Promise/A+</a> 。了解promise原理。</p>
+<p>###利用promise改写你的项目###</p>
+<p>最佳的理解方法便是事件，你可以把一些nodejs的基本异步方法包装成promise，这样你就可以在整个程序的多个地方使用这些方法。并且让你的程序的异步代码看起来更整洁，更容易理解。
+阅读 <a href="http://documentup.com/kriskowal/q/" target="_blank" rel="noopener">Q的文档</a> 了解更多的API和方法。并在程序中使用这些方法，使你的代码更优美，逻辑更健壮。
+阅读 <a href="http://promises-aplus.github.io/promises-spec/" target="_blank" rel="noopener">Promise/A+</a> 。了解promise原理。</p>
 
       
     </div>
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/Node-js/promise-in-nodejs-get-rid-of-callback-hell/" data-id="cj1vz88400003eolsrmudkmi2" class="article-share-link">
+      <a data-url="http://nya.io/Node-js/promise-in-nodejs-get-rid-of-callback-hell/" data-id="cjh1hzev4001678hvzuftugt8" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -437,15 +446,15 @@ Promise的出现解决了这两个需求，又保持了javascript异步的优势
   <ul class="tag-list nav-menu mobile-meta">
     
       <li>
-        <a href="/tags/Javascript/">#Javascript</a>
-      </li>
-    
-      <li>
         <a href="/tags/Node-js/">#Node.js</a>
       </li>
     
       <li>
         <a href="/tags/Promise/">#Promise</a>
+      </li>
+    
+      <li>
+        <a href="/tags/Javascript/">#Javascript</a>
       </li>
     
   </ul>
@@ -464,15 +473,15 @@ Promise的出现解决了这两个需求，又保持了javascript异步的优势
   <ul class="tag-list">
     
       <li>
-        <a href="/tags/Javascript/">#Javascript</a>
-      </li>
-    
-      <li>
         <a href="/tags/Node-js/">#Node.js</a>
       </li>
     
       <li>
         <a href="/tags/Promise/">#Promise</a>
+      </li>
+    
+      <li>
+        <a href="/tags/Javascript/">#Javascript</a>
       </li>
     
   </ul>
@@ -500,28 +509,28 @@ Promise的出现解决了这两个需求，又保持了javascript异步的优势
     </header>
     <div class="article-entry">
       
-        <p>好吧，这个post是个广告，如果你是一名web前端开发者，使用AngularJS，bootstrap和jquery。那么我在这里向你推荐我最近发布的一个开源项目：<a href="http://nya.io/nya-bootstrap-select/" target="_blank" rel="external"><strong>nya-bootstrap-select</strong></a></p>
-<p>nya-bootstrap-select 是一个对<a href="http://silviomoreto.github.io/bootstrap-select/" target="_blank" rel="external">bootstrap-select</a>的包装，让这个功能强大的jquery插件可以用angularjs特有的风格在angularjs程序中使用。</p>
+        <p>好吧，这个post是个广告，如果你是一名web前端开发者，使用AngularJS，bootstrap和jquery。那么我在这里向你推荐我最近发布的一个开源项目：<a href="http://nya.io/nya-bootstrap-select/"><strong>nya-bootstrap-select</strong></a></p>
+<p>nya-bootstrap-select 是一个对<a href="http://silviomoreto.github.io/bootstrap-select/" target="_blank" rel="noopener">bootstrap-select</a>的包装，让这个功能强大的jquery插件可以用angularjs特有的风格在angularjs程序中使用。</p>
 <p>依赖：
     AngularJS 1.0+(这个是当然的） bootstrap-select 1.3+  bootstrap css （支持2.x和3.x）</p>
 <p>安装：
-推荐使用<a href="http://bower.io" target="_blank" rel="external">bower</a>来安装，可以帮助你自动处理依赖关系。</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">bower</span> install nya-bootstrap-<span class="built_in">select</span></span><br></pre></td></tr></table></figure>
+推荐使用<a href="http://bower.io" target="_blank" rel="noopener">bower</a>来安装，可以帮助你自动处理依赖关系。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bower install nya-bootstrap-select</span><br></pre></td></tr></table></figure>
 <p>将src/nya-bootstrap-select.js加入到你的页面里</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"bower_components/nya-bootstrap-select/src/nya-bootstrap-select.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;bower_components/nya-bootstrap-select/src/nya-bootstrap-select.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 <p>将 nya.bootstrap.select作为angular app的依赖</p>
-<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">angular.<span class="keyword">module</span>(<span class="symbol">'yourApp'</span>, [<span class="symbol">'nya</span>.bootstrap.select']);</span><br></pre></td></tr></table></figure>
-<p>现在可以开始使用了。本文就只列举一个例子，更多例子请参考文档 <a href="http://nya.io/nya-bootstrap-select/" target="_blank" rel="external">http://nya.io/nya-bootstrap-select/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">angular.module(&apos;yourApp&apos;, [&apos;nya.bootstrap.select&apos;]);</span><br></pre></td></tr></table></figure>
+<p>现在可以开始使用了。本文就只列举一个例子，更多例子请参考文档 <a href="http://nya.io/nya-bootstrap-select/">http://nya.io/nya-bootstrap-select/</a></p>
 <p>在select标签里，加入class <code>nya-selectpicker</code> 也可以作为属性加入。 然后将你的scope变量绑定到ng-model上，这样你可以获取到选择的值。
 假设你的$scope.myOptions就是选项的条件
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">select</span> <span class="keyword">class</span>=<span class="string">"nya-selectpicker"</span> data-container=<span class="string">"body"</span> ng-model=<span class="string">"myModel"</span> ng-options=<span class="string">"c.value for c in myOptions"</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;/<span class="keyword">select</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;select class=&quot;nya-selectpicker&quot; data-container=&quot;body&quot; ng-model=&quot;myModel&quot; ng-options=&quot;c.value for c in myOptions&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
   </div>
   <div class="article-additional">
     <div class="social-buttons">
-      <a data-url="http://nya.io/uncategorized/getting-started-with-nya-bootstrap-select/" data-id="cj1vz884l0015eolss1rbv5av" class="article-share-link">
+      <a data-url="http://nya.io/uncategorized/getting-started-with-nya-bootstrap-select/" data-id="cjh1hzeux000p78hvkspub8rm" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
       </a>
@@ -588,7 +597,7 @@ Promise的出现解决了这两个需求，又保持了javascript异步的优势
     <div class="footer-inner">
 
       <section class="copyright">
-        Nyasoft © 2015
+        Nyasoft © 2015 - 2018
       </section>
 
       <section class="designedby">
@@ -621,6 +630,6 @@ Promise的出现解决了这两个需求，又保持了javascript异步的优势
 
 
 <script type="text/javascript" src="/js/cf26f8f0.jquery.js"></script>
-<script src="/fancybox/source/jquery.fancybox.js" type="text/javascript"></script>
+<script src="/fancybox/source/jquery.fancybox.js"></script>
 <script type="text/javascript" src="/js/33415e49.caption.js"></script>
 </body>
